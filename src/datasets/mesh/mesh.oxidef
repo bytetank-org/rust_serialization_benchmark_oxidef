@@ -1,0 +1,16 @@
+final struct Vector3 {
+  x: f32,
+  y: f32,
+  z: f32,
+}
+
+final struct Triangle {
+  v0: Vector3,
+  v1: Vector3,
+  v2: Vector3,
+  normal: Vector3,
+}
+
+final struct Mesh {
+  triangles: list<1048576, Triangle>,
+}

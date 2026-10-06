@@ -12,6 +12,14 @@ pub mod minecraft_savedata_fb;
 pub mod minecraft_savedata_prost;
 #[cfg(feature = "protobuf")]
 pub mod minecraft_savedata_protobuf;
+#[cfg(feature = "oxidef")]
+use super::oxidef_generated::{
+    minecraft_savedata as oxidef_final, minecraft_savedata_extensible as oxidef_extensible,
+};
+#[cfg(feature = "oxidef_old")]
+use super::oxidef_old_generated::{
+    minecraft_savedata as oxidef_old_final, minecraft_savedata_extensible as oxidef_old_extensible,
+};
 #[cfg(feature = "protobuf4")]
 use protobuf4_generated as proto4;
 
@@ -35,6 +43,8 @@ use crate::bench_buffa;
 use crate::bench_capnp;
 #[cfg(feature = "flatbuffers")]
 use crate::bench_flatbuffers;
+#[cfg(any(feature = "oxidef", feature = "oxidef_old"))]
+use crate::bench_oxidef;
 #[cfg(feature = "prost")]
 use crate::bench_prost;
 #[cfg(feature = "protobuf")]
@@ -2847,3 +2857,327 @@ impl bench_protobuf4::Serialize for Players {
         }
     }
 }
+
+/// Implements the Oxidef conversions for one of the generated schema modules. The `final` and
+/// `extensible` schemas generate identically-shaped types, so the conversions are shared.
+#[cfg(any(feature = "oxidef", feature = "oxidef_old"))]
+macro_rules! impl_oxidef {
+    ($schema:ident) => {
+        impl From<GameType> for $schema::GameType {
+            fn from(value: GameType) -> Self {
+                match value {
+                    GameType::Survival => Self::Survival,
+                    GameType::Creative => Self::Creative,
+                    GameType::Adventure => Self::Adventure,
+                    GameType::Spectator => Self::Spectator,
+                }
+            }
+        }
+
+        impl From<$schema::GameType> for GameType {
+            fn from(value: $schema::GameType) -> Self {
+                // Extensible unions have an extra `_FutureVariant` that we never encode.
+                #[allow(unreachable_patterns)]
+                match value {
+                    $schema::GameType::Survival => Self::Survival,
+                    $schema::GameType::Creative => Self::Creative,
+                    $schema::GameType::Adventure => Self::Adventure,
+                    $schema::GameType::Spectator => Self::Spectator,
+                    _ => unreachable!("unknown game type"),
+                }
+            }
+        }
+
+        impl From<(f64, f64, f64)> for $schema::Vector3d {
+            fn from((x, y, z): (f64, f64, f64)) -> Self {
+                Self { x, y, z }
+            }
+        }
+
+        impl From<$schema::Vector3d> for (f64, f64, f64) {
+            fn from(value: $schema::Vector3d) -> Self {
+                (value.x, value.y, value.z)
+            }
+        }
+
+        impl From<(f32, f32)> for $schema::Vector2f {
+            fn from((x, y): (f32, f32)) -> Self {
+                Self { x, y }
+            }
+        }
+
+        impl From<$schema::Vector2f> for (f32, f32) {
+            fn from(value: $schema::Vector2f) -> Self {
+                (value.x, value.y)
+            }
+        }
+
+        impl From<[u32; 4]> for $schema::Uuid {
+            fn from([x0, x1, x2, x3]: [u32; 4]) -> Self {
+                Self { x0, x1, x2, x3 }
+            }
+        }
+
+        impl From<$schema::Uuid> for [u32; 4] {
+            fn from(value: $schema::Uuid) -> Self {
+                [value.x0, value.x1, value.x2, value.x3]
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Item> for Item {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Item {
+                $schema::Item {
+                    count: self.count,
+                    slot: self.slot,
+                    id: self.id.clone(),
+                }
+            }
+        }
+
+        impl From<$schema::Item> for Item {
+            fn from(value: $schema::Item) -> Self {
+                Item {
+                    count: value.count,
+                    slot: value.slot,
+                    id: value.id,
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Abilities> for Abilities {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Abilities {
+                $schema::Abilities {
+                    walk_speed: self.walk_speed,
+                    fly_speed: self.fly_speed,
+                    may_fly: self.may_fly,
+                    flying: self.flying,
+                    invulnerable: self.invulnerable,
+                    may_build: self.may_build,
+                    instabuild: self.instabuild,
+                }
+            }
+        }
+
+        impl From<$schema::Abilities> for Abilities {
+            fn from(value: $schema::Abilities) -> Self {
+                Abilities {
+                    walk_speed: value.walk_speed,
+                    fly_speed: value.fly_speed,
+                    may_fly: value.may_fly,
+                    flying: value.flying,
+                    invulnerable: value.invulnerable,
+                    may_build: value.may_build,
+                    instabuild: value.instabuild,
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Entity> for Entity {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Entity {
+                $schema::Entity {
+                    id: self.id.clone(),
+                    pos: self.pos.into(),
+                    motion: self.motion.into(),
+                    rotation: self.rotation.into(),
+                    fall_distance: self.fall_distance,
+                    fire: self.fire,
+                    air: self.air,
+                    on_ground: self.on_ground,
+                    no_gravity: self.no_gravity,
+                    invulnerable: self.invulnerable,
+                    portal_cooldown: self.portal_cooldown,
+                    uuid: self.uuid.into(),
+                    custom_name: self.custom_name.clone(),
+                    custom_name_visible: self.custom_name_visible,
+                    silent: self.silent,
+                    glowing: self.glowing,
+                }
+            }
+        }
+
+        impl From<$schema::Entity> for Entity {
+            fn from(value: $schema::Entity) -> Self {
+                Entity {
+                    id: value.id,
+                    pos: value.pos.into(),
+                    motion: value.motion.into(),
+                    rotation: value.rotation.into(),
+                    fall_distance: value.fall_distance,
+                    fire: value.fire,
+                    air: value.air,
+                    on_ground: value.on_ground,
+                    no_gravity: value.no_gravity,
+                    invulnerable: value.invulnerable,
+                    portal_cooldown: value.portal_cooldown,
+                    uuid: value.uuid.into(),
+                    custom_name: value.custom_name,
+                    custom_name_visible: value.custom_name_visible,
+                    silent: value.silent,
+                    glowing: value.glowing,
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::RecipeBook> for RecipeBook {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::RecipeBook {
+                $schema::RecipeBook {
+                    recipes: self.recipes.clone(),
+                    to_be_displayed: self.to_be_displayed.clone(),
+                    is_filtering_craftable: self.is_filtering_craftable,
+                    is_gui_open: self.is_gui_open,
+                    is_furnace_filtering_craftable: self.is_furnace_filtering_craftable,
+                    is_furnace_gui_open: self.is_furnace_gui_open,
+                    is_blasting_furnace_filtering_craftable: self
+                        .is_blasting_furnace_filtering_craftable,
+                    is_blasting_furnace_gui_open: self.is_blasting_furnace_gui_open,
+                    is_smoker_filtering_craftable: self.is_smoker_filtering_craftable,
+                    is_smoker_gui_open: self.is_smoker_gui_open,
+                }
+            }
+        }
+
+        impl From<$schema::RecipeBook> for RecipeBook {
+            fn from(value: $schema::RecipeBook) -> Self {
+                RecipeBook {
+                    recipes: value.recipes,
+                    to_be_displayed: value.to_be_displayed,
+                    is_filtering_craftable: value.is_filtering_craftable,
+                    is_gui_open: value.is_gui_open,
+                    is_furnace_filtering_craftable: value.is_furnace_filtering_craftable,
+                    is_furnace_gui_open: value.is_furnace_gui_open,
+                    is_blasting_furnace_filtering_craftable: value
+                        .is_blasting_furnace_filtering_craftable,
+                    is_blasting_furnace_gui_open: value.is_blasting_furnace_gui_open,
+                    is_smoker_filtering_craftable: value.is_smoker_filtering_craftable,
+                    is_smoker_gui_open: value.is_smoker_gui_open,
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Player> for Player {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Player {
+                $schema::Player {
+                    game_type: self.game_type.into(),
+                    previous_game_type: self.previous_game_type.into(),
+                    score: self.score,
+                    dimension: self.dimension.clone(),
+                    selected_item_slot: self.selected_item_slot,
+                    selected_item: self.selected_item.serialize_oxidef(),
+                    spawn_dimension: self.spawn_dimension.clone(),
+                    spawn_x: self.spawn_x,
+                    spawn_y: self.spawn_y,
+                    spawn_z: self.spawn_z,
+                    spawn_forced: self.spawn_forced,
+                    sleep_timer: self.sleep_timer,
+                    food_exhaustion_level: self.food_exhaustion_level,
+                    food_saturation_level: self.food_saturation_level,
+                    food_tick_timer: self.food_tick_timer,
+                    xp_level: self.xp_level,
+                    xp_p: self.xp_p,
+                    xp_total: self.xp_total,
+                    xp_seed: self.xp_seed,
+                    inventory: self
+                        .inventory
+                        .iter()
+                        .map(|item| item.serialize_oxidef())
+                        .collect(),
+                    ender_items: self
+                        .ender_items
+                        .iter()
+                        .map(|item| item.serialize_oxidef())
+                        .collect(),
+                    abilities: self.abilities.serialize_oxidef(),
+                    entered_nether_position: self.entered_nether_position.map(Into::into),
+                    root_vehicle: self.root_vehicle.as_ref().map(|(uuid, entity)| {
+                        $schema::Vehicle {
+                            uuid: (*uuid).into(),
+                            entity: entity.serialize_oxidef(),
+                        }
+                    }),
+                    shoulder_entity_left: self
+                        .shoulder_entity_left
+                        .as_ref()
+                        .map(|entity| entity.serialize_oxidef()),
+                    shoulder_entity_right: self
+                        .shoulder_entity_right
+                        .as_ref()
+                        .map(|entity| entity.serialize_oxidef()),
+                    seen_credits: self.seen_credits,
+                    recipe_book: self.recipe_book.serialize_oxidef(),
+                }
+            }
+        }
+
+        impl From<$schema::Player> for Player {
+            fn from(value: $schema::Player) -> Self {
+                Player {
+                    game_type: value.game_type.into(),
+                    previous_game_type: value.previous_game_type.into(),
+                    score: value.score,
+                    dimension: value.dimension,
+                    selected_item_slot: value.selected_item_slot,
+                    selected_item: value.selected_item.into(),
+                    spawn_dimension: value.spawn_dimension,
+                    spawn_x: value.spawn_x,
+                    spawn_y: value.spawn_y,
+                    spawn_z: value.spawn_z,
+                    spawn_forced: value.spawn_forced,
+                    sleep_timer: value.sleep_timer,
+                    food_exhaustion_level: value.food_exhaustion_level,
+                    food_saturation_level: value.food_saturation_level,
+                    food_tick_timer: value.food_tick_timer,
+                    xp_level: value.xp_level,
+                    xp_p: value.xp_p,
+                    xp_total: value.xp_total,
+                    xp_seed: value.xp_seed,
+                    inventory: value.inventory.into_iter().map(Into::into).collect(),
+                    ender_items: value.ender_items.into_iter().map(Into::into).collect(),
+                    abilities: value.abilities.into(),
+                    entered_nether_position: value.entered_nether_position.map(Into::into),
+                    root_vehicle: value
+                        .root_vehicle
+                        .map(|vehicle| (vehicle.uuid.into(), vehicle.entity.into())),
+                    shoulder_entity_left: value.shoulder_entity_left.map(Into::into),
+                    shoulder_entity_right: value.shoulder_entity_right.map(Into::into),
+                    seen_credits: value.seen_credits,
+                    recipe_book: value.recipe_book.into(),
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Players> for Players {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Players {
+                $schema::Players {
+                    players: self
+                        .players
+                        .iter()
+                        .map(|player| player.serialize_oxidef())
+                        .collect(),
+                }
+            }
+        }
+
+        impl From<$schema::Players> for Players {
+            fn from(value: $schema::Players) -> Self {
+                Players {
+                    players: value.players.into_iter().map(Into::into).collect(),
+                }
+            }
+        }
+    };
+}
+
+#[cfg(feature = "oxidef")]
+impl_oxidef!(oxidef_final);
+#[cfg(feature = "oxidef")]
+impl_oxidef!(oxidef_extensible);
+#[cfg(feature = "oxidef_old")]
+impl_oxidef!(oxidef_old_final);
+#[cfg(feature = "oxidef_old")]
+impl_oxidef!(oxidef_old_extensible);

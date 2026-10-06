@@ -12,6 +12,12 @@ pub mod mesh_fb;
 pub mod mesh_prost;
 #[cfg(feature = "protobuf")]
 pub mod mesh_protobuf;
+#[cfg(feature = "oxidef")]
+use super::oxidef_generated::{mesh as oxidef_final, mesh_extensible as oxidef_extensible};
+#[cfg(feature = "oxidef_old")]
+use super::oxidef_old_generated::{
+    mesh as oxidef_old_final, mesh_extensible as oxidef_old_extensible,
+};
 #[cfg(feature = "protobuf4")]
 use protobuf4_generated as proto4;
 
@@ -32,6 +38,8 @@ use crate::bench_buffa;
 use crate::bench_capnp;
 #[cfg(feature = "flatbuffers")]
 use crate::bench_flatbuffers;
+#[cfg(any(feature = "oxidef", feature = "oxidef_old"))]
+use crate::bench_oxidef;
 #[cfg(feature = "prost")]
 use crate::bench_prost;
 #[cfg(feature = "protobuf")]
@@ -567,3 +575,84 @@ impl bench_protobuf4::Serialize for Mesh {
         }
     }
 }
+
+/// Implements the Oxidef conversions for one of the generated schema modules. The `final` and
+/// `extensible` schemas generate identically-shaped types, so the conversions are shared.
+#[cfg(any(feature = "oxidef", feature = "oxidef_old"))]
+macro_rules! impl_oxidef {
+    ($schema:ident) => {
+        impl bench_oxidef::Serialize<$schema::Vector3> for Vector3 {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Vector3 {
+                $schema::Vector3 {
+                    x: self.x,
+                    y: self.y,
+                    z: self.z,
+                }
+            }
+        }
+
+        impl From<$schema::Vector3> for Vector3 {
+            fn from(value: $schema::Vector3) -> Self {
+                Vector3 {
+                    x: value.x,
+                    y: value.y,
+                    z: value.z,
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Triangle> for Triangle {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Triangle {
+                $schema::Triangle {
+                    v0: self.v0.serialize_oxidef(),
+                    v1: self.v1.serialize_oxidef(),
+                    v2: self.v2.serialize_oxidef(),
+                    normal: self.normal.serialize_oxidef(),
+                }
+            }
+        }
+
+        impl From<$schema::Triangle> for Triangle {
+            fn from(value: $schema::Triangle) -> Self {
+                Triangle {
+                    v0: value.v0.into(),
+                    v1: value.v1.into(),
+                    v2: value.v2.into(),
+                    normal: value.normal.into(),
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Mesh> for Mesh {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Mesh {
+                $schema::Mesh {
+                    triangles: self
+                        .triangles
+                        .iter()
+                        .map(|triangle| triangle.serialize_oxidef())
+                        .collect(),
+                }
+            }
+        }
+
+        impl From<$schema::Mesh> for Mesh {
+            fn from(value: $schema::Mesh) -> Self {
+                Mesh {
+                    triangles: value.triangles.into_iter().map(Into::into).collect(),
+                }
+            }
+        }
+    };
+}
+
+#[cfg(feature = "oxidef")]
+impl_oxidef!(oxidef_final);
+#[cfg(feature = "oxidef")]
+impl_oxidef!(oxidef_extensible);
+#[cfg(feature = "oxidef_old")]
+impl_oxidef!(oxidef_old_final);
+#[cfg(feature = "oxidef_old")]
+impl_oxidef!(oxidef_old_extensible);

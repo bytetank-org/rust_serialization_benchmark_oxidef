@@ -24,6 +24,10 @@
         "protobuf4": {
             "crate_name": "protobuf",
             "version": "4.36.2-release"
+        },
+        "oxidef_old": {
+            "crate_name": "oxidef",
+            "version": "0.1.0-alpha.1"
         }
     },
     "common_encodings": {

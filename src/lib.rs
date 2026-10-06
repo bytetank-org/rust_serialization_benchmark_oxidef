@@ -26,6 +26,8 @@ pub mod bench_minicbor;
 pub mod bench_msgpacker;
 #[cfg(feature = "nanoserde")]
 pub mod bench_nanoserde;
+#[cfg(any(feature = "oxidef", feature = "oxidef_old"))]
+pub mod bench_oxidef;
 #[cfg(feature = "postcard")]
 pub mod bench_postcard;
 #[cfg(feature = "prost")]

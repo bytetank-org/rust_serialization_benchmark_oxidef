@@ -66,6 +66,12 @@ minicbor = { version = "=2.3.0", optional = true, features = [
 ] }
 msgpacker = { version = "=0.7.1", optional = true }
 nanoserde = { version = "=0.2.1", optional = true }
+oxidef_compact1 = { git = "https://git.emunest.net/reivilibre/oxidef.git", rev = "0310199a9dc0f8bf11e37a8af30eedd9f021c5a8", optional = true }
+oxidef_validation = { git = "https://git.emunest.net/reivilibre/oxidef.git", rev = "0310199a9dc0f8bf11e37a8af30eedd9f021c5a8", optional = true }
+# A second, older copy of oxidef to compare against. A different `rev` spelling is needed when it
+# points at the same commit, as Cargo refuses to depend on one package under two names.
+oxidef_compact1_old = { package = "oxidef_compact1", git = "https://git.emunest.net/reivilibre/oxidef.git", rev = "0310199a9dc0", optional = true }
+oxidef_validation_old = { package = "oxidef_validation", git = "https://git.emunest.net/reivilibre/oxidef.git", rev = "0310199a9dc0", optional = true }
 postcard = { version = "=1.1.3", features = ["alloc"], optional = true }
 prost = { version = "=0.14.4", optional = true }
 protobuf = { version = "=3.7.2", optional = true }
@@ -114,6 +120,8 @@ default-encoding-set = [
     "minicbor",
     "msgpacker",
     "nanoserde",
+    "oxidef",
+    "oxidef_old",
     "postcard",
     "prost",
     "protobuf",
@@ -138,6 +146,8 @@ all-protobuf = ["buffa", "prost", "protobuf", "protobuf4"]
 measure-compression = []
 buffa = ["dep:buffa"]
 capnp = ["dep:capnp"]
+oxidef = ["dep:oxidef", "dep:oxidef_compact1", "dep:oxidef_validation"]
+oxidef_old = ["dep:oxidef_old", "dep:oxidef_compact1_old", "dep:oxidef_validation_old"]
 prost = ["dep:prost", "dep:capnp"]
 protobuf = ["dep:protobuf"]
 protobuf4 = ["dep:protobuf4", "dep:protobuf4-generated"]
@@ -169,6 +179,8 @@ buffa-build = { version = "=0.9.2", optional = true }
 capnpc = { version = "=0.27.0", optional = true }
 eyre = { workspace = true }
 flatc-rust = { version = "=0.2.0", optional = true }
+oxidef = { git = "https://git.emunest.net/reivilibre/oxidef.git", rev = "0310199a9dc0f8bf11e37a8af30eedd9f021c5a8", optional = true }
+oxidef_old = { package = "oxidef", git = "https://git.emunest.net/reivilibre/oxidef.git", rev = "0310199a9dc0", optional = true }
 prost-build = { version = "=0.14.4", optional = true }
 protobuf-codegen = { version = "=3.7.2", optional = true }
 protobuf4-codegen = { package = "protobuf-codegen", version = "=4.36.2-release", optional = true }

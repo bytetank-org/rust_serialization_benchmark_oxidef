@@ -151,8 +151,11 @@ fn find_package_version(name: &str, version_req: Option<&str>, metadata: &Metada
                     .is_none_or(|req| req.matches(&pkg.version))
         })
         .collect();
-    match *packages {
-        [one_match] => one_match.version.to_string(),
+    // Several copies of the same crate version (e.g. from git at different revisions) are fine.
+    let versions: std::collections::BTreeSet<_> =
+        packages.iter().map(|pkg| pkg.version.to_string()).collect();
+    match *versions.iter().collect::<Vec<_>>() {
+        [one_match] => one_match.clone(),
         [] => panic!("package {name:?} with version {version_req:?} not found in crate metadata"),
         _ => panic!(
             "package {name:?} with version {version_req:?} matches multiple crates in crate \

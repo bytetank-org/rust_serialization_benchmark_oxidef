@@ -104,11 +104,20 @@ fn write_crate_row(
     features: &Features,
 ) -> fmt::Result {
     let package_id = features.get(feature.name).unwrap();
+    // Fall back to the feature name when it's needed to tell apart two copies of the same crate.
+    let pkg = if features.iter().any(|(name, other)| {
+        name != feature.name
+            && other.crate_name == package_id.crate_name
+            && other.version == package_id.version
+    }) {
+        feature.name
+    } else {
+        &package_id.crate_name
+    };
     if let Some(encoding) = feature.common_encoding {
         write!(
             output,
             "| {encoding}:<br> [{pkg} {version}][{feature}] |",
-            pkg = package_id.crate_name,
             version = package_id.version,
             feature = feature.name,
         )
@@ -116,7 +125,6 @@ fn write_crate_row(
         write!(
             output,
             "| [{pkg} {version}][{feature}] |",
-            pkg = package_id.crate_name,
             version = package_id.version,
             feature = feature.name,
         )

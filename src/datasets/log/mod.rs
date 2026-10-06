@@ -12,6 +12,12 @@ pub mod log_fb;
 pub mod log_prost;
 #[cfg(feature = "protobuf")]
 pub mod log_protobuf;
+#[cfg(feature = "oxidef")]
+use super::oxidef_generated::{log as oxidef_final, log_extensible as oxidef_extensible};
+#[cfg(feature = "oxidef_old")]
+use super::oxidef_old_generated::{
+    log as oxidef_old_final, log_extensible as oxidef_old_extensible,
+};
 #[cfg(feature = "protobuf4")]
 use protobuf4_generated as proto4;
 
@@ -32,6 +38,8 @@ use crate::bench_buffa;
 use crate::bench_capnp;
 #[cfg(feature = "flatbuffers")]
 use crate::bench_flatbuffers;
+#[cfg(any(feature = "oxidef", feature = "oxidef_old"))]
+use crate::bench_oxidef;
 #[cfg(feature = "prost")]
 use crate::bench_prost;
 #[cfg(feature = "protobuf")]
@@ -811,3 +819,88 @@ impl bench_protobuf4::Serialize for Logs {
         }
     }
 }
+
+/// Implements the Oxidef conversions for one of the generated schema modules. The `final` and
+/// `extensible` schemas generate identically-shaped types, so the conversions are shared.
+#[cfg(any(feature = "oxidef", feature = "oxidef_old"))]
+macro_rules! impl_oxidef {
+    ($schema:ident) => {
+        impl bench_oxidef::Serialize<$schema::Address> for Address {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Address {
+                $schema::Address {
+                    x0: self.x0,
+                    x1: self.x1,
+                    x2: self.x2,
+                    x3: self.x3,
+                }
+            }
+        }
+
+        impl From<$schema::Address> for Address {
+            fn from(value: $schema::Address) -> Self {
+                Address {
+                    x0: value.x0,
+                    x1: value.x1,
+                    x2: value.x2,
+                    x3: value.x3,
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Log> for Log {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Log {
+                $schema::Log {
+                    address: self.address.serialize_oxidef(),
+                    identity: self.identity.clone(),
+                    userid: self.userid.clone(),
+                    date: self.date.clone(),
+                    request: self.request.clone(),
+                    code: self.code,
+                    size: self.size,
+                }
+            }
+        }
+
+        impl From<$schema::Log> for Log {
+            fn from(value: $schema::Log) -> Self {
+                Log {
+                    address: value.address.into(),
+                    identity: value.identity,
+                    userid: value.userid,
+                    date: value.date,
+                    request: value.request,
+                    code: value.code,
+                    size: value.size,
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Logs> for Logs {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Logs {
+                $schema::Logs {
+                    logs: self.logs.iter().map(|log| log.serialize_oxidef()).collect(),
+                }
+            }
+        }
+
+        impl From<$schema::Logs> for Logs {
+            fn from(value: $schema::Logs) -> Self {
+                Logs {
+                    logs: value.logs.into_iter().map(Into::into).collect(),
+                }
+            }
+        }
+    };
+}
+
+#[cfg(feature = "oxidef")]
+impl_oxidef!(oxidef_final);
+#[cfg(feature = "oxidef")]
+impl_oxidef!(oxidef_extensible);
+#[cfg(feature = "oxidef_old")]
+impl_oxidef!(oxidef_old_final);
+#[cfg(feature = "oxidef_old")]
+impl_oxidef!(oxidef_old_extensible);

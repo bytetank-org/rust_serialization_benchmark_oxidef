@@ -94,7 +94,58 @@ fn protobuf4_compile_dataset(name: &'static str) -> Result<()> {
     Ok(())
 }
 
+#[cfg(any(feature = "oxidef", feature = "oxidef_old"))]
+fn oxidef_dataset_files(names: &[&str]) -> Vec<String> {
+    // Each dataset has a schema using `final` types everywhere and an equivalent schema using
+    // `extensible` types everywhere, so the overhead of extensibility can be compared.
+    names
+        .iter()
+        .flat_map(|name| {
+            [
+                format!("src/datasets/{name}/{name}.oxidef"),
+                format!("src/datasets/{name}/{name}_extensible.oxidef"),
+            ]
+        })
+        .collect()
+}
+
+#[cfg(feature = "oxidef")]
+fn oxidef_compile_datasets(names: &[&str]) -> Result<()> {
+    oxidef::compile_files(oxidef_dataset_files(names))
+        .compact1()
+        .validation()
+        .finish_rust("oxidef")
+        .map_err(|err| err!("{err:?}"))?;
+    Ok(())
+}
+
+#[cfg(feature = "oxidef_old")]
+fn oxidef_old_compile_datasets(names: &[&str]) -> Result<()> {
+    oxidef_old::compile_files(oxidef_dataset_files(names))
+        .compact1()
+        .validation()
+        .finish_rust("oxidef_old")
+        .map_err(|err| err!("{err:?}"))?;
+
+    // The generated code refers to the runtime crates by their usual names, so point it at the
+    // renamed `_old` copies instead.
+    let out_dir = PathBuf::from(env::var("OUT_DIR")?).join("oxidef_old");
+    for entry in std::fs::read_dir(&out_dir)? {
+        let path = entry?.path();
+        let code = std::fs::read_to_string(&path)?
+            .replace("::oxidef_compact1::", "::oxidef_compact1_old::")
+            .replace("::oxidef_validation::", "::oxidef_validation_old::");
+        std::fs::write(&path, code)?;
+    }
+    Ok(())
+}
+
 fn main() -> Result<()> {
+    #[cfg(feature = "oxidef")]
+    oxidef_compile_datasets(&["log", "mesh", "minecraft_savedata", "mk48"])?;
+    #[cfg(feature = "oxidef_old")]
+    oxidef_old_compile_datasets(&["log", "mesh", "minecraft_savedata", "mk48"])?;
+
     #[cfg(any(
         feature = "regenerate-buffa",
         feature = "regenerate-capnp",

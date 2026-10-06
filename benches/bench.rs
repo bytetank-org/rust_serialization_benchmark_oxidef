@@ -29,6 +29,8 @@ use rust_serialization_benchmark::bench_minicbor;
 use rust_serialization_benchmark::bench_msgpacker;
 #[cfg(feature = "nanoserde")]
 use rust_serialization_benchmark::bench_nanoserde;
+#[cfg(any(feature = "oxidef", feature = "oxidef_old"))]
+use rust_serialization_benchmark::bench_oxidef;
 #[cfg(feature = "postcard")]
 use rust_serialization_benchmark::bench_postcard;
 #[cfg(feature = "prost")]
@@ -173,6 +175,22 @@ fn bench_log(c: &mut Criterion) {
 
     bench_unvarying!(BENCH, c, data; borrowable);
 
+    #[cfg(feature = "oxidef")]
+    {
+        use rust_serialization_benchmark::datasets::oxidef_generated::{
+            log::Logs as Final, log_extensible::Logs as Extensible,
+        };
+        bench_oxidef::bench::<_, Final, Extensible>(BENCH, c, &data);
+    }
+
+    #[cfg(feature = "oxidef_old")]
+    {
+        use rust_serialization_benchmark::datasets::oxidef_old_generated::{
+            log::Logs as Final, log_extensible::Logs as Extensible,
+        };
+        bench_oxidef::bench_old::<_, Final, Extensible>(BENCH, c, &data);
+    }
+
     #[cfg(feature = "capnp")]
     bench_capnp::bench(BENCH, c, &data, |bytes| {
         let message_reader =
@@ -291,6 +309,22 @@ fn bench_mesh(c: &mut Criterion) {
 
     bench_unvarying!(BENCH, c, data);
 
+    #[cfg(feature = "oxidef")]
+    {
+        use rust_serialization_benchmark::datasets::oxidef_generated::{
+            mesh::Mesh as Final, mesh_extensible::Mesh as Extensible,
+        };
+        bench_oxidef::bench::<_, Final, Extensible>(BENCH, c, &data);
+    }
+
+    #[cfg(feature = "oxidef_old")]
+    {
+        use rust_serialization_benchmark::datasets::oxidef_old_generated::{
+            mesh::Mesh as Final, mesh_extensible::Mesh as Extensible,
+        };
+        bench_oxidef::bench_old::<_, Final, Extensible>(BENCH, c, &data);
+    }
+
     #[cfg(feature = "capnp")]
     bench_capnp::bench(BENCH, c, &data, |bytes| {
         let message_reader =
@@ -393,6 +427,24 @@ fn bench_minecraft_savedata(c: &mut Criterion) {
     };
 
     bench_unvarying!(BENCH, c, data; borrowable);
+
+    #[cfg(feature = "oxidef")]
+    {
+        use rust_serialization_benchmark::datasets::oxidef_generated::{
+            minecraft_savedata::Players as Final,
+            minecraft_savedata_extensible::Players as Extensible,
+        };
+        bench_oxidef::bench::<_, Final, Extensible>(BENCH, c, &data);
+    }
+
+    #[cfg(feature = "oxidef_old")]
+    {
+        use rust_serialization_benchmark::datasets::oxidef_old_generated::{
+            minecraft_savedata::Players as Final,
+            minecraft_savedata_extensible::Players as Extensible,
+        };
+        bench_oxidef::bench_old::<_, Final, Extensible>(BENCH, c, &data);
+    }
 
     #[cfg(feature = "capnp")]
     bench_capnp::bench(BENCH, c, &data, |bytes| {
@@ -499,6 +551,22 @@ fn bench_mk48(c: &mut Criterion) {
     };
 
     bench_unvarying!(BENCH, c, data);
+
+    #[cfg(feature = "oxidef")]
+    {
+        use rust_serialization_benchmark::datasets::oxidef_generated::{
+            mk48::Updates as Final, mk48_extensible::Updates as Extensible,
+        };
+        bench_oxidef::bench::<_, Final, Extensible>(BENCH, c, &data);
+    }
+
+    #[cfg(feature = "oxidef_old")]
+    {
+        use rust_serialization_benchmark::datasets::oxidef_old_generated::{
+            mk48::Updates as Final, mk48_extensible::Updates as Extensible,
+        };
+        bench_oxidef::bench_old::<_, Final, Extensible>(BENCH, c, &data);
+    }
 
     #[cfg(feature = "capnp")]
     bench_capnp::bench(BENCH, c, &data, |bytes| {

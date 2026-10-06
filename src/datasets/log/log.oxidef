@@ -1,0 +1,20 @@
+final struct Address {
+  x0: u8,
+  x1: u8,
+  x2: u8,
+  x3: u8,
+}
+
+final struct Log {
+  address: Address,
+  identity: string<256>,
+  userid: string<256>,
+  date: string<256>,
+  request: string<256>,
+  code: u16,
+  size: u64,
+}
+
+final struct Logs {
+  logs: list<1048576, Log>,
+}

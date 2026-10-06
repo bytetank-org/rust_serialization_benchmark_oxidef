@@ -12,6 +12,12 @@ pub mod mk48_fb;
 pub mod mk48_prost;
 #[cfg(feature = "protobuf")]
 pub mod mk48_protobuf;
+#[cfg(feature = "oxidef")]
+use super::oxidef_generated::{mk48 as oxidef_final, mk48_extensible as oxidef_extensible};
+#[cfg(feature = "oxidef_old")]
+use super::oxidef_old_generated::{
+    mk48 as oxidef_old_final, mk48_extensible as oxidef_old_extensible,
+};
 #[cfg(feature = "protobuf4")]
 use protobuf4_generated as proto4;
 
@@ -35,6 +41,8 @@ use crate::bench_buffa;
 use crate::bench_capnp;
 #[cfg(feature = "flatbuffers")]
 use crate::bench_flatbuffers;
+#[cfg(any(feature = "oxidef", feature = "oxidef_old"))]
+use crate::bench_oxidef;
 #[cfg(feature = "prost")]
 use crate::bench_prost;
 #[cfg(feature = "protobuf")]
@@ -1783,3 +1791,208 @@ impl bench_protobuf4::Serialize for Updates {
         }
     }
 }
+
+/// Implements the Oxidef conversions for one of the generated schema modules. The `final` and
+/// `extensible` schemas generate identically-shaped types, so the conversions are shared.
+#[cfg(any(feature = "oxidef", feature = "oxidef_old"))]
+macro_rules! impl_oxidef {
+    ($schema:ident) => {
+        impl From<EntityType> for $schema::EntityType {
+            fn from(value: EntityType) -> Self {
+                match value {
+                    EntityType::ArleighBurke => Self::ArleighBurke,
+                    EntityType::Bismarck => Self::Bismarck,
+                    EntityType::Clemenceau => Self::Clemenceau,
+                    EntityType::Fletcher => Self::Fletcher,
+                    EntityType::G5 => Self::G5,
+                    EntityType::Iowa => Self::Iowa,
+                    EntityType::Kolkata => Self::Kolkata,
+                    EntityType::Osa => Self::Osa,
+                    EntityType::Yasen => Self::Yasen,
+                    EntityType::Zubr => Self::Zubr,
+                }
+            }
+        }
+
+        impl From<$schema::EntityType> for EntityType {
+            fn from(value: $schema::EntityType) -> Self {
+                // Extensible unions have an extra `_FutureVariant` that we never encode.
+                #[allow(unreachable_patterns)]
+                match value {
+                    $schema::EntityType::ArleighBurke => Self::ArleighBurke,
+                    $schema::EntityType::Bismarck => Self::Bismarck,
+                    $schema::EntityType::Clemenceau => Self::Clemenceau,
+                    $schema::EntityType::Fletcher => Self::Fletcher,
+                    $schema::EntityType::G5 => Self::G5,
+                    $schema::EntityType::Iowa => Self::Iowa,
+                    $schema::EntityType::Kolkata => Self::Kolkata,
+                    $schema::EntityType::Osa => Self::Osa,
+                    $schema::EntityType::Yasen => Self::Yasen,
+                    $schema::EntityType::Zubr => Self::Zubr,
+                    _ => unreachable!("unknown entity type"),
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Transform> for Transform {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Transform {
+                $schema::Transform {
+                    altitude: self.altitude,
+                    angle: self.angle,
+                    position: $schema::Vector2f {
+                        x: self.position.0,
+                        y: self.position.1,
+                    },
+                    velocity: self.velocity,
+                }
+            }
+        }
+
+        impl From<$schema::Transform> for Transform {
+            fn from(value: $schema::Transform) -> Self {
+                Transform {
+                    altitude: value.altitude,
+                    angle: value.angle,
+                    position: (value.position.x, value.position.y),
+                    velocity: value.velocity,
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Guidance> for Guidance {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Guidance {
+                $schema::Guidance {
+                    angle: self.angle,
+                    submerge: self.submerge,
+                    velocity: self.velocity,
+                }
+            }
+        }
+
+        impl From<$schema::Guidance> for Guidance {
+            fn from(value: $schema::Guidance) -> Self {
+                Guidance {
+                    angle: value.angle,
+                    submerge: value.submerge,
+                    velocity: value.velocity,
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Contact> for Contact {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Contact {
+                $schema::Contact {
+                    damage: self.damage,
+                    entity_id: self.entity_id,
+                    entity_type: self.entity_type.map(Into::into),
+                    guidance: self.guidance.serialize_oxidef(),
+                    player_id: self.player_id,
+                    reloads: self.reloads.clone(),
+                    transform: self.transform.serialize_oxidef(),
+                    turret_angles: self.turret_angles.clone(),
+                }
+            }
+        }
+
+        impl From<$schema::Contact> for Contact {
+            fn from(value: $schema::Contact) -> Self {
+                Contact {
+                    damage: value.damage,
+                    entity_id: value.entity_id,
+                    entity_type: value.entity_type.map(Into::into),
+                    guidance: value.guidance.into(),
+                    player_id: value.player_id,
+                    reloads: value.reloads,
+                    transform: value.transform.into(),
+                    turret_angles: value.turret_angles,
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::TerrainUpdate> for TerrainUpdate {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::TerrainUpdate {
+                $schema::TerrainUpdate {
+                    chunk_id: $schema::ChunkId {
+                        x: self.chunk_id.0,
+                        y: self.chunk_id.1,
+                    },
+                    data: self.data.clone(),
+                }
+            }
+        }
+
+        impl From<$schema::TerrainUpdate> for TerrainUpdate {
+            fn from(value: $schema::TerrainUpdate) -> Self {
+                TerrainUpdate {
+                    chunk_id: (value.chunk_id.x, value.chunk_id.y),
+                    data: value.data,
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Update> for Update {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Update {
+                $schema::Update {
+                    contacts: self
+                        .contacts
+                        .iter()
+                        .map(|contact| contact.serialize_oxidef())
+                        .collect(),
+                    score: self.score,
+                    world_radius: self.world_radius,
+                    terrain_updates: self
+                        .terrain_updates
+                        .iter()
+                        .map(|terrain_update| terrain_update.serialize_oxidef())
+                        .collect(),
+                }
+            }
+        }
+
+        impl From<$schema::Update> for Update {
+            fn from(value: $schema::Update) -> Self {
+                Update {
+                    contacts: value.contacts.into_iter().map(Into::into).collect(),
+                    score: value.score,
+                    world_radius: value.world_radius,
+                    terrain_updates: value.terrain_updates.into_iter().map(Into::into).collect(),
+                }
+            }
+        }
+
+        impl bench_oxidef::Serialize<$schema::Updates> for Updates {
+            #[inline]
+            fn serialize_oxidef(&self) -> $schema::Updates {
+                $schema::Updates {
+                    updates: self
+                        .updates
+                        .iter()
+                        .map(|update| update.serialize_oxidef())
+                        .collect(),
+                }
+            }
+        }
+
+        impl From<$schema::Updates> for Updates {
+            fn from(value: $schema::Updates) -> Self {
+                Updates {
+                    updates: value.updates.into_iter().map(Into::into).collect(),
+                }
+            }
+        }
+    };
+}
+
+#[cfg(feature = "oxidef")]
+impl_oxidef!(oxidef_final);
+#[cfg(feature = "oxidef")]
+impl_oxidef!(oxidef_extensible);
+#[cfg(feature = "oxidef_old")]
+impl_oxidef!(oxidef_old_final);
+#[cfg(feature = "oxidef_old")]
+impl_oxidef!(oxidef_old_extensible);

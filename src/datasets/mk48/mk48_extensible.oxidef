@@ -1,0 +1,71 @@
+extensible union EntityType {
+  ArleighBurke,
+  Bismarck,
+  Clemenceau,
+  Fletcher,
+  G5,
+  Iowa,
+  Kolkata,
+  Osa,
+  Yasen,
+  Zubr,
+  -----
+}
+
+extensible struct Vector2f {
+  x: f32,
+  y: f32,
+  -----
+}
+
+extensible struct Transform {
+  altitude: i8,
+  angle: u16,
+  position: Vector2f,
+  velocity: i16,
+  -----
+}
+
+extensible struct Guidance {
+  angle: u16,
+  submerge: bool,
+  velocity: i16,
+  -----
+}
+
+extensible struct Contact {
+  damage: u8,
+  entity_id: u32,
+  entity_type: option<EntityType>,
+  guidance: Guidance,
+  player_id: option<u16>,
+  reloads: list<256, bool>,
+  transform: Transform,
+  turret_angles: list<256, u16>,
+  -----
+}
+
+extensible struct ChunkId {
+  x: i8,
+  y: i8,
+  -----
+}
+
+extensible struct TerrainUpdate {
+  chunk_id: ChunkId,
+  data: bytes<65536>,
+  -----
+}
+
+extensible struct Update {
+  contacts: list<65536, Contact>,
+  score: u32,
+  world_radius: f32,
+  terrain_updates: list<65536, TerrainUpdate>,
+  -----
+}
+
+extensible struct Updates {
+  updates: list<1048576, Update>,
+  -----
+}

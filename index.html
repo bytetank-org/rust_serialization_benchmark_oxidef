@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Rust Serialization Benchmark</title>
+    <meta property="og:type" content="website"/>
+    
+<script type="module" nonce="hnXJRvfLBOnl4zxa8ojfvw==">
+import init, * as bindings from '/rust_serialization_benchmark/pages.js';
+const wasm = await init('/rust_serialization_benchmark/pages_bg.wasm');
+
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script>
+
+<link rel="modulepreload" href="/rust_serialization_benchmark/pages.js" crossorigin=anonymous integrity="sha384-vgKZIOcStIlPlQlGbl8hZsD4bew6xTp1qnV2VZAiVcsA57grJWi/EUuPMxVuoFv/">
+<link rel="preload" href="/rust_serialization_benchmark/pages_bg.wasm" crossorigin=anonymous integrity="sha384-4zNz84JnDY4fCdUTSuK6wnKnTSKKz4qdJKFxBFxV872Axmlgscc9VKqkAQJmtxNJ" as="fetch" type="application/wasm"></head>
+<body style="background-color: #2c3e50;">
+
+</body>
+</html>

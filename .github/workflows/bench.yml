@@ -13,6 +13,9 @@ on:
 env:
   CI: true
 
+permissions:
+  contents: write
+
 jobs:
   build:
     name: bench

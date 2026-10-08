@@ -1,12 +1,16 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.10"
+# dependencies = ["matplotlib", "pillow"]
+# ///
 """Plot speed-vs-size Pareto frontiers from a benchmark_results JSON file.
 
-Usage: python3 graphs/pareto.py [results.json] [output_dir]
+Usage: graphs/pareto.py [results.json] [output_dir]
 
-Defaults to the newest file in benchmark_results/ and writes two PNGs per
+Defaults to the newest file in benchmark_results/ and writes two images per
 dataset into graphs/: one with every crate, and one restricted to formats with
 evolvable schemas (fields can be added/removed without breaking old readers).
-Requires matplotlib.
+Dependencies are declared inline; run with uv.
 """
 
 import json
@@ -232,8 +236,11 @@ def main():
         fig.text(0.04, 0.945, f"Source: {results.name}. Bottom-left is better; "
                  "points on the blue staircase are not beaten on both axes by any other.",
                  color=INK_2, fontsize=9)
-        out = out_dir / f"pareto_{name}{suffix}.png"
-        fig.savefig(out, dpi=130, facecolor=SURFACE)
+        # Lossless WebP at max effort: ~3.4x smaller than PNG. Lossless AVIF is
+        # larger than this, and lossy formats smear the small text.
+        out = out_dir / f"pareto_{name}{suffix}.webp"
+        fig.savefig(out, dpi=130, facecolor=SURFACE,
+                    pil_kwargs=dict(lossless=True, quality=100, method=6))
         plt.close(fig)
         print(f"wrote {out}")
 

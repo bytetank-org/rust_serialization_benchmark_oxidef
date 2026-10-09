@@ -52,17 +52,17 @@ Some benchmark results may be italicized and followed by an asterisk. Mouse over
 
 Other footnotes are located at the bottom of the page.
 
-## Last updated: 2026-10-05 23:16:23
+## Last updated: 2026-10-09 12:23:14
 
 <details><summary>Runtime info</summary>
 
 ### `rustc` version
 
 ```
-rustc 1.101.0-nightly (282215592 2026-10-04)
+rustc 1.101.0-nightly (a30aa9064 2026-10-08)
 binary: rustc
-commit-hash: 28221559263a3976766cf305940e80e30cf9ba8a
-commit-date: 2026-10-04
+commit-hash: a30aa9064df6a504b6a323c6884a2f4cfbfff666
+commit-date: 2026-10-08
 host: x86_64-unknown-linux-gnu
 release: 1.101.0-nightly
 LLVM version: 23.1.3
@@ -78,21 +78,21 @@ Byte Order:                              Little Endian
 CPU(s):                                  4
 On-line CPU(s) list:                     0-3
 Vendor ID:                               AuthenticAMD
-Model name:                              AMD EPYC 7763 64-Core Processor
+Model name:                              AMD EPYC 9V74 80-Core Processor
 CPU family:                              25
-Model:                                   1
+Model:                                   17
 Thread(s) per core:                      2
 Core(s) per socket:                      2
 Socket(s):                               1
 Stepping:                                1
-BogoMIPS:                                4890.85
-Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl tsc_reliable nonstop_tsc cpuid extd_apicid aperfmperf tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid rdseed adx smap clflushopt clwb sha_ni xsaveopt xsavec xgetbv1 xsaves user_shstk clzero xsaveerptr rdpru arat npt nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload umip vaes vpclmulqdq rdpid fsrm
+BogoMIPS:                                5192.29
+Flags:                                   fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx mmxext fxsr_opt pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology tsc_reliable nonstop_tsc cpuid extd_apicid aperfmperf tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 movbe popcnt aes xsave avx f16c rdrand hypervisor lahf_lm cmp_legacy svm cr8_legacy abm sse4a misalignsse 3dnowprefetch osvw topoext vmmcall fsgsbase bmi1 avx2 smep bmi2 erms invpcid avx512f avx512dq rdseed adx smap avx512ifma clflushopt clwb avx512cd sha_ni avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves user_shstk avx512_bf16 clzero xsaveerptr rdpru arat npt nrip_save tsc_scale vmcb_clean flushbyasid decodeassists pausefilter pfthreshold v_vmsave_vmload avx512vbmi umip avx512_vbmi2 gfni vaes vpclmulqdq avx512_vnni avx512_bitalg avx512_vpopcntdq rdpid fsrm
 Virtualization:                          AMD-V
 Hypervisor vendor:                       Microsoft
 Virtualization type:                     full
 L1d cache:                               64 KiB (2 instances)
 L1i cache:                               64 KiB (2 instances)
-L2 cache:                                1 MiB (2 instances)
+L2 cache:                                2 MiB (2 instances)
 L3 cache:                                32 MiB (1 instance)
 NUMA node(s):                            1
 NUMA node0 CPU(s):                       0-3
@@ -131,41 +131,43 @@ For operations, time per iteration; for size, bytes. Lower is better.
 
 | Crate | Serialize | Deserialize | Borrow | Size | Zlib | Zstd | Zstd Time |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| [bilrost 0.1016.1][bilrost] | <span title="encode">*474.26 µs\**</span> <span title="prepend">*424.95 µs\**</span> | 2.6719 ms | 889.80 µs | 804955 | 328941 | 284849 | 3.7794 ms |
-| [bin-proto 0.12.9][bin-proto] | 4.6040 ms | 4.6570 ms | † | 1045784 | 373127 | 311553 | 4.9875 ms |
-| [bitcode 0.6.9][bitcode] | 146.23 µs | 1.4627 ms | 62.383 µs | 703710 | 288826 | 227322 | 2.4072 ms |
-| [borsh 1.8.1][borsh] | 538.00 µs | 2.1794 ms | † | 885780 | 362204 | 286248 | 4.2598 ms |
-| capnp:<br> [capnp 0.27.2][capnp] | 614.45 µs <span title="packed">*1.4923 ms\**</span> | † | † | 1443216 <span title="packed">*1046865\**</span> | 513986 <span title="packed">*481681\**</span> | 426532 <span title="packed">*458024\**</span> | 6.2052 ms <span title="packed">*5.4661 ms\**</span> |
-| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 612.39 µs | 5.0893 ms | 3.5661 ms | 1407835 | 403440 | 323561 | 4.8618 ms |
-| cbor:<br> [ciborium 0.2.2][ciborium] | 4.0821 ms | 11.941 ms | † | 1407835 | 403440 | 323561 | 5.1075 ms |
-| [flatbuffers 25.12.19][flatbuffers] | 1.0480 ms | † | † | 1276368 | 468539 | 388381 | 4.8758 ms |
-| [flexbuffers 25.12.19][flexbuffers] | 6.5149 ms | 7.1869 ms | 5.4444 ms | 1829756 | 714318 | 691541 | 8.7442 ms |
-| json:<br> [flexon 0.4.9][flexon] | 2.3589 ms | 3.6965 ms | † | 1827461 | 470560 | 360727 | 5.9821 ms |
-| json:<br> [serde_json 1.0.151][serde_json] | 3.6304 ms | 6.1963 ms | † | 1827461 | 470560 | 360727 | 5.5363 ms |
-| json:<br> [simd-json 0.17.3][simd-json] | 2.2017 ms | 4.8315 ms | † | 1827461 | 470560 | 360727 | 5.5555 ms |
-| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 348.64 µs | 2.5756 ms | 935.01 µs | 764996 | 315291 | 264212 | 3.6109 ms |
-| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 1.4680 ms | 3.1443 ms | 1.5417 ms | 784997 | 325384 | 277608 | 3.8686 ms |
-| messagepack:<br> [zerompk 0.8.0][zerompk] | 349.11 µs | 2.2330 ms | 750.41 µs | 784997 | 325384 | 277608 | 3.8326 ms |
-| [minicbor 2.3.0][minicbor] | 509.76 µs | 2.9704 ms | 1.4188 ms | 817830 | 332671 | 284034 | 4.0535 ms |
-| [nanoserde 0.2.1][nanoserde] | 262.19 µs | 2.1097 ms | † | 1045784 | 373127 | 311553 | 4.2755 ms |
-| [postcard 1.1.3][postcard] | 415.58 µs | 2.3385 ms | 628.78 µs | 724953 | 302399 | 252968 | 3.2483 ms |
-| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*905.35 µs\**</span> <span title="populate + encode">*2.3891 ms\**</span> | <span title="decode">*3.0463 ms\**</span> <span title="decode + convert">*3.1747 ms\**</span> | 1.7834 ms | 884628 | 363130 | 314959 | 4.4780 ms |
-| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*951.15 µs\**</span> <span title="populate + encode">*2.4626 ms\**</span> | <span title="decode">*3.3833 ms\**</span> <span title="decode + convert">*3.4300 ms\**</span> | † | 884628 | 363130 | 314959 | 4.7934 ms |
-| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*1.3333 ms\**</span> <span title="populate + encode">*3.1605 ms\**</span> | <span title="decode">*3.9048 ms\**</span> <span title="decode + convert">*3.9938 ms\**</span> | † | 884628 | 363130 | 314959 | 4.7646 ms |
-| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*1.7391 ms\**</span> <span title="populate + encode">*7.5239 ms\**</span> | <span title="decode + convert">*7.5075 ms\**</span> <span title="decode, unvalidated">*3.1102 ms\**</span> | † | 884628 | 363130 | 314959 | 4.4944 ms |
-| [rkyv 0.8.18][rkyv] | 251.61 µs | <span title="unvalidated">*1.5571 ms\**</span> <span title="validated upfront with error">*1.9202 ms\**</span> | † | 1011488 | 393526 | 325965 | 4.9764 ms |
-| [ron 0.12.2][ron] | 12.534 ms | 27.073 ms | 25.085 ms | 1607459 | 449158 | 349324 | 5.6759 ms |
-| [savefile 0.20.5][savefile] | 193.79 µs | 2.1189 ms | † | 1045800 | 373139 | 311562 | 4.2223 ms |
-| [serde-zap 0.1.1][serde-zap] | 193.14 µs | 2.1222 ms | 515.45 µs | 741295 | 303944 | 256422 | 3.4173 ms |
-| [wincode 0.6.2][wincode] | 191.41 µs | 1.8207 ms | 369.46 µs | 1045784 | 373127 | 311553 | 4.3746 ms |
+| [bilrost 0.1016.1][bilrost] | <span title="encode">*332.17 µs\**</span> <span title="prepend">*255.74 µs\**</span> | 2.0855 ms | 698.41 µs | 804955 | 328941 | 284849 | 2.8032 ms |
+| [bin-proto 0.12.9][bin-proto] | 3.8814 ms | 3.6199 ms | † | 1045784 | 373127 | 311553 | 3.8390 ms |
+| [bitcode 0.6.9][bitcode] | 97.570 µs | 1.1383 ms | 48.678 µs | 703710 | 288826 | 227322 | 1.8757 ms |
+| [borsh 1.8.1][borsh] | 469.49 µs | 1.7147 ms | † | 885780 | 362204 | 286248 | 3.0733 ms |
+| capnp:<br> [capnp 0.27.2][capnp] | 479.35 µs <span title="packed">*1.2246 ms\**</span> | † | † | 1443216 <span title="packed">*1046865\**</span> | 513986 <span title="packed">*481681\**</span> | 426532 <span title="packed">*458024\**</span> | 4.6099 ms <span title="packed">*3.9902 ms\**</span> |
+| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 412.69 µs | 4.2087 ms | 3.0336 ms | 1407835 | 403440 | 323561 | 3.4886 ms |
+| cbor:<br> [ciborium 0.2.2][ciborium] | 3.3054 ms | 10.976 ms | † | 1407835 | 403440 | 323561 | 3.7899 ms |
+| [flatbuffers 25.12.19][flatbuffers] | 762.99 µs | † | † | 1276368 | 468539 | 388381 | 3.5943 ms |
+| [flexbuffers 25.12.19][flexbuffers] | 5.2731 ms | 5.8706 ms | 4.5975 ms | 1829756 | 714318 | 691541 | 6.0894 ms |
+| json:<br> [flexon 0.4.9][flexon] | 1.9535 ms | 2.8572 ms | † | 1827461 | 470560 | 360727 | 4.5871 ms |
+| json:<br> [serde_json 1.0.151][serde_json] | 3.1804 ms | 4.8166 ms | † | 1827461 | 470560 | 360727 | 4.2950 ms |
+| json:<br> [simd-json 0.17.3][simd-json] | 1.8511 ms | 3.7130 ms | † | 1827461 | 470560 | 360727 | 4.1536 ms |
+| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 264.64 µs | 2.0170 ms | 773.52 µs | 764996 | 315291 | 264212 | 2.6478 ms |
+| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 1.3200 ms | 2.3759 ms | 1.0828 ms | 784997 | 325384 | 277608 | 2.7446 ms |
+| messagepack:<br> [zerompk 0.8.0][zerompk] | 270.27 µs | 1.7900 ms | 620.02 µs | 784997 | 325384 | 277608 | 2.7138 ms |
+| [minicbor 2.3.0][minicbor] | 406.59 µs | 2.2731 ms | 1.0321 ms | 817830 | 332671 | 284034 | 2.8498 ms |
+| [nanoserde 0.2.1][nanoserde] | 184.48 µs | 1.6867 ms | † | 1045784 | 373127 | 311553 | 3.0698 ms |
+| [oxidef 0.1.0-alpha.1][oxidef] | 262.99 µs <span title="extensible">*755.34 µs\**</span> | 1.8007 ms <span title="extensible">*1.9677 ms\**</span> | † | 765778 <span title="extensible">*785779\**</span> | 311715 <span title="extensible">*314432\**</span> | 263915 <span title="extensible">*266685\**</span> | 2.5055 ms <span title="extensible">*2.6361 ms\**</span> |
+| [oxidef_old 0.1.0-alpha.1][oxidef_old] | 351.50 µs <span title="extensible">*781.28 µs\**</span> | 1.8178 ms <span title="extensible">*2.0216 ms\**</span> | † | 765778 <span title="extensible">*785779\**</span> | 311715 <span title="extensible">*314432\**</span> | 263915 <span title="extensible">*266685\**</span> | 2.5819 ms <span title="extensible">*2.5592 ms\**</span> |
+| [postcard 1.1.3][postcard] | 360.06 µs | 1.8755 ms | 504.70 µs | 724953 | 302399 | 252968 | 2.3066 ms |
+| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*680.55 µs\**</span> <span title="populate + encode">*1.8462 ms\**</span> | <span title="decode">*2.5491 ms\**</span> <span title="decode + convert">*2.6743 ms\**</span> | 1.4782 ms | 884628 | 363130 | 314959 | 3.1703 ms |
+| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*698.72 µs\**</span> <span title="populate + encode">*1.8704 ms\**</span> | <span title="decode">*2.6688 ms\**</span> <span title="decode + convert">*2.7225 ms\**</span> | † | 884628 | 363130 | 314959 | 3.5513 ms |
+| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*1.0124 ms\**</span> <span title="populate + encode">*2.4473 ms\**</span> | <span title="decode">*3.1521 ms\**</span> <span title="decode + convert">*3.1645 ms\**</span> | † | 884628 | 363130 | 314959 | 3.4760 ms |
+| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*1.4589 ms\**</span> <span title="populate + encode">*6.0042 ms\**</span> | <span title="decode + convert">*5.9332 ms\**</span> <span title="decode, unvalidated">*2.5261 ms\**</span> | † | 884628 | 363130 | 314959 | 3.2158 ms |
+| [rkyv 0.8.18][rkyv] | 182.00 µs | <span title="unvalidated">*1.2118 ms\**</span> <span title="validated upfront with error">*1.5185 ms\**</span> | † | 1011488 | 393526 | 325965 | 3.3814 ms |
+| [ron 0.12.2][ron] | 9.2149 ms | 22.433 ms | 20.479 ms | 1607459 | 449158 | 349324 | 4.1936 ms |
+| [savefile 0.20.5][savefile] | 153.66 µs | 1.6587 ms | † | 1045800 | 373139 | 311562 | 3.0661 ms |
+| [serde-zap 0.1.1][serde-zap] | 136.09 µs | 1.7256 ms | 408.92 µs | 741295 | 303944 | 256422 | 2.4687 ms |
+| [wincode 0.6.2][wincode] | 140.44 µs | 1.4507 ms | 299.67 µs | 1045784 | 373127 | 311553 | 3.1886 ms |
 
 #### Zero-copy deserialization speed
 
 | Crate | Access | Read | Update |
 |---|--:|--:|--:|
-| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*64.650 ns\**</span> | <span title="packed">*1.0451 ms\**</span> <span title="validated on-demand with error">*151.39 µs\**</span> | ‡ |
-| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*2.4940 ns\**</span> <span title="validated upfront with error">*2.0673 ms\**</span> | <span title="unvalidated">*49.918 µs\**</span> <span title="validated upfront with error">*2.0601 ms\**</span> | ‡ |
-| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*1.2452 ns\**</span> <span title="validated upfront with error">*366.88 µs\**</span> | <span title="unvalidated">*10.456 µs\**</span> <span title="validated upfront with error">*377.82 µs\**</span> | <span title="unvalidated">*8.9682 µs\**</span> |
+| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*65.429 ns\**</span> | <span title="packed">*855.21 µs\**</span> <span title="validated on-demand with error">*118.55 µs\**</span> | ‡ |
+| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*2.1900 ns\**</span> <span title="validated upfront with error">*1.9663 ms\**</span> | <span title="unvalidated">*42.257 µs\**</span> <span title="validated upfront with error">*1.9504 ms\**</span> | ‡ |
+| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*1.0956 ns\**</span> <span title="validated upfront with error">*292.15 µs\**</span> | <span title="unvalidated">*8.3407 µs\**</span> <span title="validated upfront with error">*303.29 µs\**</span> | <span title="unvalidated">*4.8885 µs\**</span> |
 
 ### Comparison
 
@@ -175,41 +177,43 @@ Relative to best. Higher is better.
 
 | Crate | Serialize | Deserialize | Borrow | Size | Zlib | Zstd | Zstd Time |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| [bilrost 0.1016.1][bilrost] | <span title="encode">*30.83%\**</span> <span title="prepend">*34.41%\**</span> | 54.74% | 7.01% | 87.42% | 87.80% | 79.80% | 63.69% |
-| [bin-proto 0.12.9][bin-proto] | 3.18% | 31.41% | † | 67.29% | 77.41% | 72.96% | 48.26% |
+| [bilrost 0.1016.1][bilrost] | <span title="encode">*29.37%\**</span> <span title="prepend">*38.15%\**</span> | 54.58% | 6.97% | 87.42% | 87.80% | 79.80% | 66.91% |
+| [bin-proto 0.12.9][bin-proto] | 2.51% | 31.45% | † | 67.29% | 77.41% | 72.96% | 48.86% |
 | [bitcode 0.6.9][bitcode] | 100.00% | 100.00% | 100.00% | 100.00% | 100.00% | 100.00% | 100.00% |
-| [borsh 1.8.1][borsh] | 27.18% | 67.11% | † | 79.45% | 79.74% | 79.41% | 56.51% |
-| capnp:<br> [capnp 0.27.2][capnp] | 23.80% <span title="packed">*9.80%\**</span> | † | † | 48.76% <span title="packed">*67.22%\**</span> | 56.19% <span title="packed">*59.96%\**</span> | 53.30% <span title="packed">*49.63%\**</span> | 38.79% <span title="packed">*44.04%\**</span> |
-| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 23.88% | 28.74% | 1.75% | 49.99% | 71.59% | 70.26% | 49.51% |
-| cbor:<br> [ciborium 0.2.2][ciborium] | 3.58% | 12.25% | † | 49.99% | 71.59% | 70.26% | 47.13% |
-| [flatbuffers 25.12.19][flatbuffers] | 13.95% | † | † | 55.13% | 61.64% | 58.53% | 49.37% |
-| [flexbuffers 25.12.19][flexbuffers] | 2.24% | 20.35% | 1.15% | 38.46% | 40.43% | 32.87% | 27.53% |
-| json:<br> [flexon 0.4.9][flexon] | 6.20% | 39.57% | † | 38.51% | 61.38% | 63.02% | 40.24% |
-| json:<br> [serde_json 1.0.151][serde_json] | 4.03% | 23.61% | † | 38.51% | 61.38% | 63.02% | 43.48% |
-| json:<br> [simd-json 0.17.3][simd-json] | 6.64% | 30.27% | † | 38.51% | 61.38% | 63.02% | 43.33% |
-| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 41.94% | 56.79% | 6.67% | 91.99% | 91.61% | 86.04% | 66.66% |
-| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 9.96% | 46.52% | 4.05% | 89.64% | 88.76% | 81.89% | 62.22% |
-| messagepack:<br> [zerompk 0.8.0][zerompk] | 41.89% | 65.50% | 8.31% | 89.64% | 88.76% | 81.89% | 62.81% |
-| [minicbor 2.3.0][minicbor] | 28.69% | 49.24% | 4.40% | 86.05% | 86.82% | 80.03% | 59.39% |
-| [nanoserde 0.2.1][nanoserde] | 55.77% | 69.33% | † | 67.29% | 77.41% | 72.96% | 56.30% |
-| [postcard 1.1.3][postcard] | 35.19% | 62.55% | 9.92% | 97.07% | 95.51% | 89.86% | 74.11% |
-| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*16.15%\**</span> <span title="populate + encode">*6.12%\**</span> | <span title="decode">*48.02%\**</span> <span title="decode + convert">*46.07%\**</span> | 3.50% | 79.55% | 79.54% | 72.18% | 53.76% |
-| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*15.37%\**</span> <span title="populate + encode">*5.94%\**</span> | <span title="decode">*43.23%\**</span> <span title="decode + convert">*42.64%\**</span> | † | 79.55% | 79.54% | 72.18% | 50.22% |
-| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*10.97%\**</span> <span title="populate + encode">*4.63%\**</span> | <span title="decode">*37.46%\**</span> <span title="decode + convert">*36.62%\**</span> | † | 79.55% | 79.54% | 72.18% | 50.52% |
-| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*8.41%\**</span> <span title="populate + encode">*1.94%\**</span> | <span title="decode + convert">*19.48%\**</span> <span title="decode, unvalidated">*47.03%\**</span> | † | 79.55% | 79.54% | 72.18% | 53.56% |
-| [rkyv 0.8.18][rkyv] | 58.12% | <span title="unvalidated">*93.94%\**</span> <span title="validated upfront with error">*76.17%\**</span> | † | 69.57% | 73.39% | 69.74% | 48.37% |
-| [ron 0.12.2][ron] | 1.17% | 5.40% | 0.25% | 43.78% | 64.30% | 65.07% | 42.41% |
-| [savefile 0.20.5][savefile] | 75.46% | 69.03% | † | 67.29% | 77.40% | 72.96% | 57.01% |
-| [serde-zap 0.1.1][serde-zap] | 75.71% | 68.92% | 12.10% | 94.93% | 95.03% | 88.65% | 70.44% |
-| [wincode 0.6.2][wincode] | 76.40% | 80.34% | 16.88% | 67.29% | 77.41% | 72.96% | 55.03% |
+| [borsh 1.8.1][borsh] | 20.78% | 66.38% | † | 79.45% | 79.74% | 79.41% | 61.03% |
+| capnp:<br> [capnp 0.27.2][capnp] | 20.35% <span title="packed">*7.97%\**</span> | † | † | 48.76% <span title="packed">*67.22%\**</span> | 56.19% <span title="packed">*59.96%\**</span> | 53.30% <span title="packed">*49.63%\**</span> | 40.69% <span title="packed">*47.01%\**</span> |
+| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 23.64% | 27.05% | 1.60% | 49.99% | 71.59% | 70.26% | 53.77% |
+| cbor:<br> [ciborium 0.2.2][ciborium] | 2.95% | 10.37% | † | 49.99% | 71.59% | 70.26% | 49.49% |
+| [flatbuffers 25.12.19][flatbuffers] | 12.79% | † | † | 55.13% | 61.64% | 58.53% | 52.19% |
+| [flexbuffers 25.12.19][flexbuffers] | 1.85% | 19.39% | 1.06% | 38.46% | 40.43% | 32.87% | 30.80% |
+| json:<br> [flexon 0.4.9][flexon] | 4.99% | 39.84% | † | 38.51% | 61.38% | 63.02% | 40.89% |
+| json:<br> [serde_json 1.0.151][serde_json] | 3.07% | 23.63% | † | 38.51% | 61.38% | 63.02% | 43.67% |
+| json:<br> [simd-json 0.17.3][simd-json] | 5.27% | 30.66% | † | 38.51% | 61.38% | 63.02% | 45.16% |
+| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 36.87% | 56.44% | 6.29% | 91.99% | 91.61% | 86.04% | 70.84% |
+| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 7.39% | 47.91% | 4.50% | 89.64% | 88.76% | 81.89% | 68.34% |
+| messagepack:<br> [zerompk 0.8.0][zerompk] | 36.10% | 63.59% | 7.85% | 89.64% | 88.76% | 81.89% | 69.12% |
+| [minicbor 2.3.0][minicbor] | 24.00% | 50.08% | 4.72% | 86.05% | 86.82% | 80.03% | 65.82% |
+| [nanoserde 0.2.1][nanoserde] | 52.89% | 67.49% | † | 67.29% | 77.41% | 72.96% | 61.10% |
+| [oxidef 0.1.0-alpha.1][oxidef] | 37.10% <span title="extensible">*12.92%\**</span> | 63.21% <span title="extensible">*57.85%\**</span> | † | 91.89% <span title="extensible">*89.56%\**</span> | 92.66% <span title="extensible">*91.86%\**</span> | 86.13% <span title="extensible">*85.24%\**</span> | 74.86% <span title="extensible">*71.15%\**</span> |
+| [oxidef_old 0.1.0-alpha.1][oxidef_old] | 27.76% <span title="extensible">*12.49%\**</span> | 62.62% <span title="extensible">*56.31%\**</span> | † | 91.89% <span title="extensible">*89.56%\**</span> | 92.66% <span title="extensible">*91.86%\**</span> | 86.13% <span title="extensible">*85.24%\**</span> | 72.65% <span title="extensible">*73.29%\**</span> |
+| [postcard 1.1.3][postcard] | 27.10% | 60.69% | 9.64% | 97.07% | 95.51% | 89.86% | 81.32% |
+| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*14.34%\**</span> <span title="populate + encode">*5.28%\**</span> | <span title="decode">*44.65%\**</span> <span title="decode + convert">*42.56%\**</span> | 3.29% | 79.55% | 79.54% | 72.18% | 59.16% |
+| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*13.96%\**</span> <span title="populate + encode">*5.22%\**</span> | <span title="decode">*42.65%\**</span> <span title="decode + convert">*41.81%\**</span> | † | 79.55% | 79.54% | 72.18% | 52.82% |
+| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*9.64%\**</span> <span title="populate + encode">*3.99%\**</span> | <span title="decode">*36.11%\**</span> <span title="decode + convert">*35.97%\**</span> | † | 79.55% | 79.54% | 72.18% | 53.96% |
+| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*6.69%\**</span> <span title="populate + encode">*1.63%\**</span> | <span title="decode + convert">*19.19%\**</span> <span title="decode, unvalidated">*45.06%\**</span> | † | 79.55% | 79.54% | 72.18% | 58.33% |
+| [rkyv 0.8.18][rkyv] | 53.61% | <span title="unvalidated">*93.93%\**</span> <span title="validated upfront with error">*74.96%\**</span> | † | 69.57% | 73.39% | 69.74% | 55.47% |
+| [ron 0.12.2][ron] | 1.06% | 5.07% | 0.24% | 43.78% | 64.30% | 65.07% | 44.73% |
+| [savefile 0.20.5][savefile] | 63.50% | 68.63% | † | 67.29% | 77.40% | 72.96% | 61.18% |
+| [serde-zap 0.1.1][serde-zap] | 71.70% | 65.97% | 11.90% | 94.93% | 95.03% | 88.65% | 75.98% |
+| [wincode 0.6.2][wincode] | 69.47% | 78.47% | 16.24% | 67.29% | 77.41% | 72.96% | 58.83% |
 
 #### Zero-copy deserialization speed
 
 | Crate | Access | Read | Update |
 |---|--:|--:|--:|
-| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*1.93%\**</span> | <span title="packed">*1.00%\**</span> <span title="validated on-demand with error">*6.91%\**</span> | ‡ |
-| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*49.93%\**</span> <span title="validated upfront with error">*0.00%\**</span> | <span title="unvalidated">*20.95%\**</span> <span title="validated upfront with error">*0.51%\**</span> | ‡ |
-| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*0.00%\**</span> | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*2.77%\**</span> | <span title="unvalidated">*100.00%\**</span> |
+| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*1.67%\**</span> | <span title="packed">*0.98%\**</span> <span title="validated on-demand with error">*7.04%\**</span> | ‡ |
+| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*50.03%\**</span> <span title="validated upfront with error">*0.00%\**</span> | <span title="unvalidated">*19.74%\**</span> <span title="validated upfront with error">*0.43%\**</span> | ‡ |
+| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*0.00%\**</span> | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*2.75%\**</span> | <span title="unvalidated">*100.00%\**</span> |
 
 ## `mesh`
 
@@ -223,41 +227,43 @@ For operations, time per iteration; for size, bytes. Lower is better.
 
 | Crate | Serialize | Deserialize | Size | Zlib | Zstd | Zstd Time |
 |---|--:|--:|--:|--:|--:|--:|
-| [bilrost 0.1016.1][bilrost] | <span title="encode">*6.8896 ms\**</span> <span title="prepend">*8.6870 ms\**</span> | 7.7424 ms | 8625005 | 6443961 | 6231572 | 72.266 ms |
-| [bin-proto 0.12.9][bin-proto] | 8.7296 ms | 10.379 ms | 6000008 | 5378500 | 5346908 | 8.6105 ms |
-| [bitcode 0.6.9][bitcode] | 1.3867 ms | 699.82 µs | 6000006 | 5182295 | 4921841 | 13.203 ms |
-| [borsh 1.8.1][borsh] | 5.7577 ms | 4.3384 ms | 6000004 | 5378496 | 5346866 | 8.6725 ms |
-| capnp:<br> [capnp 0.27.2][capnp] | 9.5364 ms <span title="packed">*19.341 ms\**</span> | † | 14000088 <span title="packed">*10401737\**</span> | 7130367 <span title="packed">*7308001\**</span> | 6046182 <span title="packed">*7922110\**</span> | 80.914 ms <span title="packed">*67.707 ms\**</span> |
-| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 9.4013 ms | 44.877 ms | 13125016 | 7524114 | 6757437 | 90.558 ms |
-| cbor:<br> [ciborium 0.2.2][ciborium] | 67.789 ms | 112.54 ms | 13122324 | 7524660 | 6759128 | 92.242 ms |
-| [flatbuffers 25.12.19][flatbuffers] | 470.18 µs | † | 6000024 | 5378434 | 5346878 | 8.5548 ms |
-| [flexbuffers 25.12.19][flexbuffers] | 100.57 ms | 77.696 ms | 26609424 | 11901040 | 12486322 | 153.57 ms |
-| json:<br> [flexon 0.4.9][flexon] | 66.328 ms | 53.131 ms | 26192883 | 9566084 | 8584671 | 157.34 ms |
-| json:<br> [serde_json 1.0.151][serde_json] | 86.367 ms | 102.52 ms | 26192883 | 9566084 | 8584671 | 156.90 ms |
-| json:<br> [simd-json 0.17.3][simd-json] | 53.087 ms | 73.007 ms | 26192883 | 9566084 | 8584671 | 156.88 ms |
-| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 648.11 µs | 3.7468 ms | 7500005 | 6058442 | 6014500 | 10.675 ms |
-| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 18.934 ms | 12.914 ms | 8125006 | 6494876 | 6391037 | 70.576 ms |
-| messagepack:<br> [zerompk 0.8.0][zerompk] | 650.89 µs | 3.1182 ms | 8125006 | 6494876 | 6391037 | 70.151 ms |
-| [minicbor 2.3.0][minicbor] | 6.0622 ms | 11.642 ms | 8125006 | 6494907 | 6390894 | 70.690 ms |
-| [nanoserde 0.2.1][nanoserde] | 1.7158 ms | 873.29 µs | 6000008 | 5378500 | 5346908 | 8.5022 ms |
-| [postcard 1.1.3][postcard] | 514.58 µs | 6.5513 ms | 6000003 | 5378495 | 5346897 | 8.9041 ms |
-| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*8.9798 ms\**</span> <span title="populate + encode">*11.462 ms\**</span> | <span title="decode">*14.146 ms\**</span> <span title="decode + convert">*13.864 ms\**</span> | 8750000 | 6665735 | 6421877 | 73.402 ms |
-| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*8.0827 ms\**</span> <span title="populate + encode">*8.8207 ms\**</span> | <span title="decode">*14.186 ms\**</span> <span title="decode + convert">*14.534 ms\**</span> | 8750000 | 6665735 | 6421877 | 74.149 ms |
-| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*14.758 ms\**</span> <span title="populate + encode">*31.645 ms\**</span> | <span title="decode">*30.673 ms\**</span> <span title="decode + convert">*30.865 ms\**</span> | 8750000 | 6665735 | 6421877 | 77.622 ms |
-| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*36.576 ms\**</span> <span title="populate + encode">*110.77 ms\**</span> | <span title="decode + convert">*74.294 ms\**</span> <span title="decode, unvalidated">*39.516 ms\**</span> | 8750000 | 6665735 | 6421877 | 80.052 ms |
-| [rkyv 0.8.18][rkyv] | 199.20 µs | <span title="unvalidated">*182.57 µs\**</span> <span title="validated upfront with error">*221.60 µs\**</span> | 6000008 | 5378500 | 5346872 | 8.4985 ms |
-| [ron 0.12.2][ron] | 187.87 ms | 565.27 ms | 22192885 | 8970395 | 8137334 | 150.93 ms |
-| [savefile 0.20.5][savefile] | 194.08 µs | 194.59 µs | 6000024 | 5378519 | 5346896 | 8.9230 ms |
-| [serde-zap 0.1.1][serde-zap] | 484.91 µs | 1.2157 ms | 6000005 | 5378497 | 5346882 | 8.5801 ms |
-| [wincode 0.6.2][wincode] | 150.15 µs | 191.07 µs | 6000008 | 5378500 | 5346908 | 8.7498 ms |
+| [bilrost 0.1016.1][bilrost] | <span title="encode">*4.6223 ms\**</span> <span title="prepend">*4.1978 ms\**</span> | 5.8409 ms | 8625005 | 6443961 | 6231572 | 50.367 ms |
+| [bin-proto 0.12.9][bin-proto] | 7.8014 ms | 9.8221 ms | 6000008 | 5378500 | 5346908 | 7.4942 ms |
+| [bitcode 0.6.9][bitcode] | 1.2394 ms | 1.2557 ms | 6000006 | 5182295 | 4921841 | 10.977 ms |
+| [borsh 1.8.1][borsh] | 5.8184 ms | 3.7694 ms | 6000004 | 5378496 | 5346866 | 7.5831 ms |
+| capnp:<br> [capnp 0.27.2][capnp] | 7.3362 ms <span title="packed">*15.945 ms\**</span> | † | 14000088 <span title="packed">*10401737\**</span> | 7130367 <span title="packed">*7308001\**</span> | 6046182 <span title="packed">*7922110\**</span> | 57.740 ms <span title="packed">*47.734 ms\**</span> |
+| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 5.8949 ms | 39.965 ms | 13125016 | 7524114 | 6757437 | 65.369 ms |
+| cbor:<br> [ciborium 0.2.2][ciborium] | 58.955 ms | 94.962 ms | 13122324 | 7524660 | 6759128 | 65.695 ms |
+| [flatbuffers 25.12.19][flatbuffers] | 365.24 µs | † | 6000024 | 5378434 | 5346878 | 7.5039 ms |
+| [flexbuffers 25.12.19][flexbuffers] | 82.518 ms | 64.867 ms | 26609424 | 11901040 | 12486322 | 110.41 ms |
+| json:<br> [flexon 0.4.9][flexon] | 60.231 ms | 40.452 ms | 26192883 | 9566084 | 8584671 | 119.18 ms |
+| json:<br> [serde_json 1.0.151][serde_json] | 70.980 ms | 85.183 ms | 26192883 | 9566084 | 8584671 | 119.25 ms |
+| json:<br> [simd-json 0.17.3][simd-json] | 46.618 ms | 53.321 ms | 26192883 | 9566084 | 8584671 | 118.89 ms |
+| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 533.34 µs | 3.3209 ms | 7500005 | 6058442 | 6014500 | 9.1182 ms |
+| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 18.211 ms | 9.6499 ms | 8125006 | 6494876 | 6391037 | 48.634 ms |
+| messagepack:<br> [zerompk 0.8.0][zerompk] | 544.41 µs | 3.1587 ms | 8125006 | 6494876 | 6391037 | 48.844 ms |
+| [minicbor 2.3.0][minicbor] | 2.3329 ms | 9.4544 ms | 8125006 | 6494907 | 6390894 | 48.634 ms |
+| [nanoserde 0.2.1][nanoserde] | 1.3500 ms | 824.83 µs | 6000008 | 5378500 | 5346908 | 7.4023 ms |
+| [oxidef 0.1.0-alpha.1][oxidef] | 2.4557 ms <span title="extensible">*9.5322 ms\**</span> | 1.1788 ms <span title="extensible">*4.6059 ms\**</span> | 6000003 <span title="extensible">*6625004\**</span> | 5378495 <span title="extensible">*5828611\**</span> | 5346897 <span title="extensible">*5695091\**</span> | 7.7024 ms <span title="extensible">*9.1566 ms\**</span> |
+| [oxidef_old 0.1.0-alpha.1][oxidef_old] | 2.4423 ms <span title="extensible">*9.1022 ms\**</span> | 1.1798 ms <span title="extensible">*4.9333 ms\**</span> | 6000003 <span title="extensible">*6625004\**</span> | 5378495 <span title="extensible">*5828611\**</span> | 5346897 <span title="extensible">*5695091\**</span> | 7.3664 ms <span title="extensible">*8.9064 ms\**</span> |
+| [postcard 1.1.3][postcard] | 413.22 µs | 5.3992 ms | 6000003 | 5378495 | 5346897 | 7.8439 ms |
+| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*5.0127 ms\**</span> <span title="populate + encode">*7.1113 ms\**</span> | <span title="decode">*8.5749 ms\**</span> <span title="decode + convert">*8.4535 ms\**</span> | 8750000 | 6665735 | 6421877 | 51.026 ms |
+| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*5.8658 ms\**</span> <span title="populate + encode">*6.4204 ms\**</span> | <span title="decode">*11.781 ms\**</span> <span title="decode + convert">*11.504 ms\**</span> | 8750000 | 6665735 | 6421877 | 50.984 ms |
+| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*12.760 ms\**</span> <span title="populate + encode">*26.660 ms\**</span> | <span title="decode">*24.831 ms\**</span> <span title="decode + convert">*25.016 ms\**</span> | 8750000 | 6665735 | 6421877 | 50.687 ms |
+| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*51.504 ms\**</span> <span title="populate + encode">*110.78 ms\**</span> | <span title="decode + convert">*55.660 ms\**</span> <span title="decode, unvalidated">*27.990 ms\**</span> | 8750000 | 6665735 | 6421877 | 56.067 ms |
+| [rkyv 0.8.18][rkyv] | 141.39 µs | <span title="unvalidated">*145.57 µs\**</span> <span title="validated upfront with error">*145.47 µs\**</span> | 6000008 | 5378500 | 5346872 | 7.2752 ms |
+| [ron 0.12.2][ron] | 151.63 ms | 446.65 ms | 22192885 | 8970395 | 8137334 | 113.28 ms |
+| [savefile 0.20.5][savefile] | 142.54 µs | 142.72 µs | 6000024 | 5378519 | 5346896 | 7.4038 ms |
+| [serde-zap 0.1.1][serde-zap] | 413.19 µs | 1.1040 ms | 6000005 | 5378497 | 5346882 | 7.6161 ms |
+| [wincode 0.6.2][wincode] | 148.65 µs | 146.86 µs | 6000008 | 5378500 | 5346908 | 7.4001 ms |
 
 #### Zero-copy deserialization speed
 
 | Crate | Access | Read | Update |
 |---|--:|--:|--:|
-| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*93.675 ns\**</span> | <span title="packed">*13.741 ms\**</span> <span title="validated on-demand with error">*2.2570 ms\**</span> | ‡ |
-| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*2.4892 ns\**</span> <span title="validated upfront with error">*45.850 ns\**</span> | <span title="unvalidated">*41.383 µs\**</span> <span title="validated upfront with error">*48.725 µs\**</span> | ‡ |
-| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*1.2450 ns\**</span> <span title="validated upfront with error">*5.2984 ns\**</span> | <span title="unvalidated">*38.925 µs\**</span> <span title="validated upfront with error">*39.474 µs\**</span> | <span title="unvalidated">*75.013 µs\**</span> |
+| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*87.996 ns\**</span> | <span title="packed">*11.187 ms\**</span> <span title="validated on-demand with error">*1.7519 ms\**</span> | ‡ |
+| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*2.1813 ns\**</span> <span title="validated upfront with error">*41.298 ns\**</span> | <span title="unvalidated">*36.661 µs\**</span> <span title="validated upfront with error">*44.583 µs\**</span> | ‡ |
+| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*1.0906 ns\**</span> <span title="validated upfront with error">*4.5849 ns\**</span> | <span title="unvalidated">*34.082 µs\**</span> <span title="validated upfront with error">*34.182 µs\**</span> | <span title="unvalidated">*158.36 µs\**</span> |
 
 ### Comparison
 
@@ -267,41 +273,43 @@ Relative to best. Higher is better.
 
 | Crate | Serialize | Deserialize | Size | Zlib | Zstd | Zstd Time |
 |---|--:|--:|--:|--:|--:|--:|
-| [bilrost 0.1016.1][bilrost] | <span title="encode">*2.18%\**</span> <span title="prepend">*1.73%\**</span> | 2.36% | 69.57% | 80.42% | 78.98% | 11.76% |
-| [bin-proto 0.12.9][bin-proto] | 1.72% | 1.76% | 100.00% | 96.35% | 92.05% | 98.70% |
-| [bitcode 0.6.9][bitcode] | 10.83% | 26.09% | 100.00% | 100.00% | 100.00% | 64.37% |
-| [borsh 1.8.1][borsh] | 2.61% | 4.21% | 100.00% | 96.35% | 92.05% | 97.99% |
-| capnp:<br> [capnp 0.27.2][capnp] | 1.57% <span title="packed">*0.78%\**</span> | † | 42.86% <span title="packed">*57.68%\**</span> | 72.68% <span title="packed">*70.91%\**</span> | 81.40% <span title="packed">*62.13%\**</span> | 10.50% <span title="packed">*12.55%\**</span> |
-| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 1.60% | 0.41% | 45.71% | 68.88% | 72.84% | 9.38% |
-| cbor:<br> [ciborium 0.2.2][ciborium] | 0.22% | 0.16% | 45.72% | 68.87% | 72.82% | 9.21% |
-| [flatbuffers 25.12.19][flatbuffers] | 31.93% | † | 100.00% | 96.35% | 92.05% | 99.34% |
-| [flexbuffers 25.12.19][flexbuffers] | 0.15% | 0.23% | 22.55% | 43.54% | 39.42% | 5.53% |
-| json:<br> [flexon 0.4.9][flexon] | 0.23% | 0.34% | 22.91% | 54.17% | 57.33% | 5.40% |
-| json:<br> [serde_json 1.0.151][serde_json] | 0.17% | 0.18% | 22.91% | 54.17% | 57.33% | 5.42% |
-| json:<br> [simd-json 0.17.3][simd-json] | 0.28% | 0.25% | 22.91% | 54.17% | 57.33% | 5.42% |
-| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 23.17% | 4.87% | 80.00% | 85.54% | 81.83% | 79.61% |
-| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 0.79% | 1.41% | 73.85% | 79.79% | 77.01% | 12.04% |
-| messagepack:<br> [zerompk 0.8.0][zerompk] | 23.07% | 5.85% | 73.85% | 79.79% | 77.01% | 12.11% |
-| [minicbor 2.3.0][minicbor] | 2.48% | 1.57% | 73.85% | 79.79% | 77.01% | 12.02% |
-| [nanoserde 0.2.1][nanoserde] | 8.75% | 20.91% | 100.00% | 96.35% | 92.05% | 99.96% |
-| [postcard 1.1.3][postcard] | 29.18% | 2.79% | 100.00% | 96.35% | 92.05% | 95.44% |
-| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*1.67%\**</span> <span title="populate + encode">*1.31%\**</span> | <span title="decode">*1.29%\**</span> <span title="decode + convert">*1.32%\**</span> | 68.57% | 77.75% | 76.64% | 11.58% |
-| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*1.86%\**</span> <span title="populate + encode">*1.70%\**</span> | <span title="decode">*1.29%\**</span> <span title="decode + convert">*1.26%\**</span> | 68.57% | 77.75% | 76.64% | 11.46% |
-| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*1.02%\**</span> <span title="populate + encode">*0.47%\**</span> | <span title="decode">*0.60%\**</span> <span title="decode + convert">*0.59%\**</span> | 68.57% | 77.75% | 76.64% | 10.95% |
-| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*0.41%\**</span> <span title="populate + encode">*0.14%\**</span> | <span title="decode + convert">*0.25%\**</span> <span title="decode, unvalidated">*0.46%\**</span> | 68.57% | 77.75% | 76.64% | 10.62% |
-| [rkyv 0.8.18][rkyv] | 75.38% | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*82.39%\**</span> | 100.00% | 96.35% | 92.05% | 100.00% |
-| [ron 0.12.2][ron] | 0.08% | 0.03% | 27.04% | 57.77% | 60.48% | 5.63% |
-| [savefile 0.20.5][savefile] | 77.37% | 93.82% | 100.00% | 96.35% | 92.05% | 95.24% |
-| [serde-zap 0.1.1][serde-zap] | 30.96% | 15.02% | 100.00% | 96.35% | 92.05% | 99.05% |
-| [wincode 0.6.2][wincode] | 100.00% | 95.55% | 100.00% | 96.35% | 92.05% | 97.13% |
+| [bilrost 0.1016.1][bilrost] | <span title="encode">*3.06%\**</span> <span title="prepend">*3.37%\**</span> | 2.44% | 69.57% | 80.42% | 78.98% | 14.44% |
+| [bin-proto 0.12.9][bin-proto] | 1.81% | 1.45% | 100.00% | 96.35% | 92.05% | 97.08% |
+| [bitcode 0.6.9][bitcode] | 11.41% | 11.37% | 100.00% | 100.00% | 100.00% | 66.28% |
+| [borsh 1.8.1][borsh] | 2.43% | 3.79% | 100.00% | 96.35% | 92.05% | 95.94% |
+| capnp:<br> [capnp 0.27.2][capnp] | 1.93% <span title="packed">*0.89%\**</span> | † | 42.86% <span title="packed">*57.68%\**</span> | 72.68% <span title="packed">*70.91%\**</span> | 81.40% <span title="packed">*62.13%\**</span> | 12.60% <span title="packed">*15.24%\**</span> |
+| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 2.40% | 0.36% | 45.71% | 68.88% | 72.84% | 11.13% |
+| cbor:<br> [ciborium 0.2.2][ciborium] | 0.24% | 0.15% | 45.72% | 68.87% | 72.82% | 11.07% |
+| [flatbuffers 25.12.19][flatbuffers] | 38.71% | † | 100.00% | 96.35% | 92.05% | 96.95% |
+| [flexbuffers 25.12.19][flexbuffers] | 0.17% | 0.22% | 22.55% | 43.54% | 39.42% | 6.59% |
+| json:<br> [flexon 0.4.9][flexon] | 0.23% | 0.35% | 22.91% | 54.17% | 57.33% | 6.10% |
+| json:<br> [serde_json 1.0.151][serde_json] | 0.20% | 0.17% | 22.91% | 54.17% | 57.33% | 6.10% |
+| json:<br> [simd-json 0.17.3][simd-json] | 0.30% | 0.27% | 22.91% | 54.17% | 57.33% | 6.12% |
+| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 26.51% | 4.30% | 80.00% | 85.54% | 81.83% | 79.79% |
+| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 0.78% | 1.48% | 73.85% | 79.79% | 77.01% | 14.96% |
+| messagepack:<br> [zerompk 0.8.0][zerompk] | 25.97% | 4.52% | 73.85% | 79.79% | 77.01% | 14.89% |
+| [minicbor 2.3.0][minicbor] | 6.06% | 1.51% | 73.85% | 79.79% | 77.01% | 14.96% |
+| [nanoserde 0.2.1][nanoserde] | 10.47% | 17.30% | 100.00% | 96.35% | 92.05% | 98.28% |
+| [oxidef 0.1.0-alpha.1][oxidef] | 5.76% <span title="extensible">*1.48%\**</span> | 12.11% <span title="extensible">*3.10%\**</span> | 100.00% <span title="extensible">*90.57%\**</span> | 96.35% <span title="extensible">*88.91%\**</span> | 92.05% <span title="extensible">*86.42%\**</span> | 94.45% <span title="extensible">*79.45%\**</span> |
+| [oxidef_old 0.1.0-alpha.1][oxidef_old] | 5.79% <span title="extensible">*1.55%\**</span> | 12.10% <span title="extensible">*2.89%\**</span> | 100.00% <span title="extensible">*90.57%\**</span> | 96.35% <span title="extensible">*88.91%\**</span> | 92.05% <span title="extensible">*86.42%\**</span> | 98.76% <span title="extensible">*81.69%\**</span> |
+| [postcard 1.1.3][postcard] | 34.22% | 2.64% | 100.00% | 96.35% | 92.05% | 92.75% |
+| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*2.82%\**</span> <span title="populate + encode">*1.99%\**</span> | <span title="decode">*1.66%\**</span> <span title="decode + convert">*1.69%\**</span> | 68.57% | 77.75% | 76.64% | 14.26% |
+| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*2.41%\**</span> <span title="populate + encode">*2.20%\**</span> | <span title="decode">*1.21%\**</span> <span title="decode + convert">*1.24%\**</span> | 68.57% | 77.75% | 76.64% | 14.27% |
+| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*1.11%\**</span> <span title="populate + encode">*0.53%\**</span> | <span title="decode">*0.57%\**</span> <span title="decode + convert">*0.57%\**</span> | 68.57% | 77.75% | 76.64% | 14.35% |
+| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*0.27%\**</span> <span title="populate + encode">*0.13%\**</span> | <span title="decode + convert">*0.26%\**</span> <span title="decode, unvalidated">*0.51%\**</span> | 68.57% | 77.75% | 76.64% | 12.98% |
+| [rkyv 0.8.18][rkyv] | 100.00% | <span title="unvalidated">*98.04%\**</span> <span title="validated upfront with error">*98.11%\**</span> | 100.00% | 96.35% | 92.05% | 100.00% |
+| [ron 0.12.2][ron] | 0.09% | 0.03% | 27.04% | 57.77% | 60.48% | 6.42% |
+| [savefile 0.20.5][savefile] | 99.19% | 100.00% | 100.00% | 96.35% | 92.05% | 98.26% |
+| [serde-zap 0.1.1][serde-zap] | 34.22% | 12.93% | 100.00% | 96.35% | 92.05% | 95.52% |
+| [wincode 0.6.2][wincode] | 95.12% | 97.18% | 100.00% | 96.35% | 92.05% | 98.31% |
 
 #### Zero-copy deserialization speed
 
 | Crate | Access | Read | Update |
 |---|--:|--:|--:|
-| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*1.33%\**</span> | <span title="packed">*0.28%\**</span> <span title="validated on-demand with error">*1.72%\**</span> | ‡ |
-| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*50.02%\**</span> <span title="validated upfront with error">*2.72%\**</span> | <span title="unvalidated">*94.06%\**</span> <span title="validated upfront with error">*79.89%\**</span> | ‡ |
-| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*23.50%\**</span> | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*98.61%\**</span> | <span title="unvalidated">*100.00%\**</span> |
+| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*1.24%\**</span> | <span title="packed">*0.30%\**</span> <span title="validated on-demand with error">*1.95%\**</span> | ‡ |
+| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*50.00%\**</span> <span title="validated upfront with error">*2.64%\**</span> | <span title="unvalidated">*92.97%\**</span> <span title="validated upfront with error">*76.45%\**</span> | ‡ |
+| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*23.79%\**</span> | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*99.71%\**</span> | <span title="unvalidated">*100.00%\**</span> |
 
 ## `minecraft_savedata`
 
@@ -315,41 +323,43 @@ For operations, time per iteration; for size, bytes. Lower is better.
 
 | Crate | Serialize | Deserialize | Borrow | Size | Zlib | Zstd | Zstd Time |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| [bilrost 0.1016.1][bilrost] | <span title="encode">*881.98 µs\**</span> <span title="prepend">*809.11 µs\**</span> | 3.2012 ms | 1.7558 ms | 489348 | 281173 | 249360 | 2.6886 ms |
-| [bin-proto 0.12.9][bin-proto] | 1.9704 ms | 2.9371 ms | † | 566975 | 239350 | 231475 | 2.5091 ms |
-| [bitcode 0.6.9][bitcode] | 127.79 µs | 1.2824 ms | 172.56 µs | 327688 | 200947 | 182040 | 795.45 µs |
-| [borsh 1.8.1][borsh] | 522.01 µs | 1.8263 ms | † | 446595 | 234236 | 209834 | 2.1424 ms |
-| capnp:<br> [capnp 0.27.2][capnp] | 472.41 µs <span title="packed">*1.0424 ms\**</span> | † | † | 803896 <span title="packed">*489017\**</span> | 335606 <span title="packed">*293127\**</span> | 280744 <span title="packed">*271528\**</span> | 3.5424 ms <span title="packed">*2.8109 ms\**</span> |
-| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 705.04 µs | 4.7847 ms | 3.6436 ms | 1109831 | 344745 | 274333 | 3.5333 ms |
-| cbor:<br> [ciborium 0.2.2][ciborium] | 3.7491 ms | 10.219 ms | † | 1109821 | 344751 | 274345 | 3.5241 ms |
-| [flatbuffers 25.12.19][flatbuffers] | 3.2549 ms | † | † | 849472 | 347816 | 294871 | 3.5457 ms |
-| [flexbuffers 25.12.19][flexbuffers] | 7.6868 ms | 6.9206 ms | 5.6118 ms | 1187688 | 557642 | 553730 | 6.2992 ms |
-| json:<br> [flexon 0.4.9][flexon] | 2.3604 ms | 4.4470 ms | † | 1623191 | 466527 | 359157 | 5.8095 ms |
-| json:<br> [serde_json 1.0.151][serde_json] | 3.5385 ms | 7.1952 ms | † | 1623191 | 466527 | 359157 | 6.0226 ms |
-| json:<br> [simd-json 0.17.3][simd-json] | 2.2463 ms | 4.7901 ms | † | 1623191 | 466527 | 359157 | 5.7474 ms |
-| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 328.27 µs | 2.7946 ms | 1.3230 ms | 391251 | 236877 | 220395 | 2.2171 ms |
-| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 1.4410 ms | 2.9994 ms | 1.7312 ms | 424533 | 245214 | 226077 | 2.2912 ms |
-| messagepack:<br> [zerompk 0.8.0][zerompk] | 357.73 µs | 2.1267 ms | 940.68 µs | 416025 | 243812 | 224965 | 2.3481 ms |
-| [minicbor 2.3.0][minicbor] | 583.09 µs | 3.3520 ms | 1.8772 ms | 428773 | 249857 | 228630 | 2.3998 ms |
-| [nanoserde 0.2.1][nanoserde] | 273.46 µs | 1.8829 ms | † | 567975 | 239930 | 231872 | 2.4657 ms |
-| [postcard 1.1.3][postcard] | 433.09 µs | 2.1615 ms | 830.80 µs | 367489 | 221913 | 207244 | 2.0684 ms |
-| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*1.0801 ms\**</span> <span title="populate + encode">*2.9089 ms\**</span> | <span title="decode">*3.2641 ms\**</span> <span title="decode + convert">*3.4547 ms\**</span> | 2.4332 ms | 596811 | 305319 | 268737 | 3.0603 ms |
-| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*1.2862 ms\**</span> <span title="populate + encode">*2.9817 ms\**</span> | <span title="decode">*3.5071 ms\**</span> <span title="decode + convert">*3.5972 ms\**</span> | † | 596811 | 305319 | 268737 | 3.0203 ms |
-| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*1.0677 ms\**</span> <span title="populate + encode">*3.0138 ms\**</span> | <span title="decode">*3.8551 ms\**</span> <span title="decode + convert">*4.0706 ms\**</span> | † | 596811 | 305319 | 268737 | 3.0548 ms |
-| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*1.7780 ms\**</span> <span title="populate + encode">*6.9994 ms\**</span> | <span title="decode + convert">*6.8841 ms\**</span> <span title="decode, unvalidated">*3.0254 ms\**</span> | † | 596811 | 305319 | 268737 | 3.0300 ms |
-| [rkyv 0.8.18][rkyv] | 330.40 µs | <span title="unvalidated">*1.5134 ms\**</span> <span title="validated upfront with error">*1.8609 ms\**</span> | † | 603776 | 254776 | 219421 | 2.4279 ms |
-| [ron 0.12.2][ron] | 8.5386 ms | 27.997 ms | 27.039 ms | 1465223 | 434935 | 342907 | 5.6057 ms |
-| [savefile 0.20.5][savefile] | 219.24 µs | 1.9231 ms | † | 566991 | 239362 | 231478 | 2.4993 ms |
-| [serde-zap 0.1.1][serde-zap] | 227.56 µs | 1.9675 ms | 693.21 µs | 367413 | 221291 | 206242 | 2.0717 ms |
-| [wincode 0.6.2][wincode] | 232.25 µs | 1.7783 ms | 555.15 µs | 566975 | 239350 | 231475 | 2.5031 ms |
+| [bilrost 0.1016.1][bilrost] | <span title="encode">*679.14 µs\**</span> <span title="prepend">*602.22 µs\**</span> | 2.4355 ms | 1.2562 ms | 489348 | 281173 | 249360 | 1.8169 ms |
+| [bin-proto 0.12.9][bin-proto] | 1.6596 ms | 2.3326 ms | † | 566975 | 239350 | 231475 | 1.8106 ms |
+| [bitcode 0.6.9][bitcode] | 90.440 µs | 1.0185 ms | 117.87 µs | 327688 | 200947 | 182040 | 581.43 µs |
+| [borsh 1.8.1][borsh] | 489.06 µs | 1.4540 ms | † | 446595 | 234236 | 209834 | 1.4778 ms |
+| capnp:<br> [capnp 0.27.2][capnp] | 388.60 µs <span title="packed">*860.63 µs\**</span> | † | † | 803896 <span title="packed">*489017\**</span> | 335606 <span title="packed">*293127\**</span> | 280744 <span title="packed">*271528\**</span> | 2.6635 ms <span title="packed">*1.8070 ms\**</span> |
+| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 550.93 µs | 3.4779 ms | 2.5141 ms | 1109831 | 344745 | 274333 | 2.5960 ms |
+| cbor:<br> [ciborium 0.2.2][ciborium] | 3.1430 ms | 8.9591 ms | † | 1109821 | 344751 | 274345 | 2.5598 ms |
+| [flatbuffers 25.12.19][flatbuffers] | 2.9093 ms | † | † | 849472 | 347816 | 294871 | 2.7104 ms |
+| [flexbuffers 25.12.19][flexbuffers] | 6.4234 ms | 5.8162 ms | 4.8020 ms | 1187688 | 557642 | 553730 | 4.3672 ms |
+| json:<br> [flexon 0.4.9][flexon] | 2.0435 ms | 3.3754 ms | † | 1623191 | 466527 | 359157 | 4.3771 ms |
+| json:<br> [serde_json 1.0.151][serde_json] | 3.0029 ms | 5.4308 ms | † | 1623191 | 466527 | 359157 | 4.2748 ms |
+| json:<br> [simd-json 0.17.3][simd-json] | 1.9393 ms | 3.6933 ms | † | 1623191 | 466527 | 359157 | 4.4385 ms |
+| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 192.61 µs | 2.3103 ms | 1.0983 ms | 391251 | 236877 | 220395 | 1.5623 ms |
+| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 1.2582 ms | 2.3433 ms | 1.3131 ms | 424533 | 245214 | 226077 | 1.6763 ms |
+| messagepack:<br> [zerompk 0.8.0][zerompk] | 211.74 µs | 1.7386 ms | 745.39 µs | 416025 | 243812 | 224965 | 1.5799 ms |
+| [minicbor 2.3.0][minicbor] | 488.13 µs | 2.6467 ms | 1.4319 ms | 428773 | 249857 | 228630 | 1.5685 ms |
+| [nanoserde 0.2.1][nanoserde] | 161.85 µs | 1.4999 ms | † | 567975 | 239930 | 231872 | 1.9718 ms |
+| [oxidef 0.1.0-alpha.1][oxidef] | 351.68 µs <span title="extensible">*733.80 µs\**</span> | 1.5576 ms <span title="extensible">*1.6992 ms\**</span> | † | 342850 <span title="extensible">*367685\**</span> | 205647 <span title="extensible">*213016\**</span> | 192950 <span title="extensible">*197024\**</span> | 1.4379 ms <span title="extensible">*1.3591 ms\**</span> |
+| [oxidef_old 0.1.0-alpha.1][oxidef_old] | 326.07 µs <span title="extensible">*730.10 µs\**</span> | 1.5598 ms <span title="extensible">*1.6971 ms\**</span> | † | 342850 <span title="extensible">*367685\**</span> | 205647 <span title="extensible">*213016\**</span> | 192950 <span title="extensible">*197024\**</span> | 1.3992 ms <span title="extensible">*1.4474 ms\**</span> |
+| [postcard 1.1.3][postcard] | 367.69 µs | 1.7539 ms | 662.25 µs | 367489 | 221913 | 207244 | 1.4670 ms |
+| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*747.65 µs\**</span> <span title="populate + encode">*2.2276 ms\**</span> | <span title="decode">*2.7148 ms\**</span> <span title="decode + convert">*2.8804 ms\**</span> | 2.1433 ms | 596811 | 305319 | 268737 | 2.1279 ms |
+| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*987.48 µs\**</span> <span title="populate + encode">*2.4018 ms\**</span> | <span title="decode">*2.7874 ms\**</span> <span title="decode + convert">*2.8671 ms\**</span> | † | 596811 | 305319 | 268737 | 2.1480 ms |
+| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*938.04 µs\**</span> <span title="populate + encode">*2.5069 ms\**</span> | <span title="decode">*2.9712 ms\**</span> <span title="decode + convert">*3.1852 ms\**</span> | † | 596811 | 305319 | 268737 | 2.1364 ms |
+| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*1.4819 ms\**</span> <span title="populate + encode">*5.7700 ms\**</span> | <span title="decode + convert">*5.4731 ms\**</span> <span title="decode, unvalidated">*2.4077 ms\**</span> | † | 596811 | 305319 | 268737 | 2.1674 ms |
+| [rkyv 0.8.18][rkyv] | 214.21 µs | <span title="unvalidated">*1.2438 ms\**</span> <span title="validated upfront with error">*1.5635 ms\**</span> | † | 603776 | 254776 | 219421 | 1.7245 ms |
+| [ron 0.12.2][ron] | 6.2281 ms | 22.027 ms | 21.047 ms | 1465223 | 434935 | 342907 | 4.1306 ms |
+| [savefile 0.20.5][savefile] | 136.05 µs | 1.5716 ms | † | 566991 | 239362 | 231478 | 1.8260 ms |
+| [serde-zap 0.1.1][serde-zap] | 138.97 µs | 1.5897 ms | 553.62 µs | 367413 | 221291 | 206242 | 1.5301 ms |
+| [wincode 0.6.2][wincode] | 137.66 µs | 1.4384 ms | 441.04 µs | 566975 | 239350 | 231475 | 1.7538 ms |
 
 #### Zero-copy deserialization speed
 
 | Crate | Access | Read | Update |
 |---|--:|--:|--:|
-| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*63.631 ns\**</span> | <span title="packed">*591.29 µs\**</span> <span title="validated on-demand with error">*414.57 ns\**</span> | ‡ |
-| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*2.4898 ns\**</span> <span title="validated upfront with error">*2.1132 ms\**</span> | <span title="unvalidated">*1.3389 µs\**</span> <span title="validated upfront with error">*2.1287 ms\**</span> | ‡ |
-| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*1.2451 ns\**</span> <span title="validated upfront with error">*329.00 µs\**</span> | <span title="unvalidated">*156.24 ns\**</span> <span title="validated upfront with error">*329.48 µs\**</span> | <span title="unvalidated">*764.10 ns\**</span> |
+| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*64.343 ns\**</span> | <span title="packed">*485.24 µs\**</span> <span title="validated on-demand with error">*496.47 ns\**</span> | ‡ |
+| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*2.1819 ns\**</span> <span title="validated upfront with error">*2.0018 ms\**</span> | <span title="unvalidated">*1.1983 µs\**</span> <span title="validated upfront with error">*1.9633 ms\**</span> | ‡ |
+| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*1.0945 ns\**</span> <span title="validated upfront with error">*253.16 µs\**</span> | <span title="unvalidated">*136.85 ns\**</span> <span title="validated upfront with error">*256.21 µs\**</span> | <span title="unvalidated">*605.15 ns\**</span> |
 
 ### Comparison
 
@@ -359,40 +369,42 @@ Relative to best. Higher is better.
 
 | Crate | Serialize | Deserialize | Borrow | Size | Zlib | Zstd | Zstd Time |
 |---|--:|--:|--:|--:|--:|--:|--:|
-| [bilrost 0.1016.1][bilrost] | <span title="encode">*14.49%\**</span> <span title="prepend">*15.79%\**</span> | 40.06% | 9.83% | 66.96% | 71.47% | 73.00% | 29.59% |
-| [bin-proto 0.12.9][bin-proto] | 6.49% | 43.66% | † | 57.80% | 83.96% | 78.64% | 31.70% |
+| [bilrost 0.1016.1][bilrost] | <span title="encode">*13.32%\**</span> <span title="prepend">*15.02%\**</span> | 41.82% | 9.38% | 66.96% | 71.47% | 73.00% | 32.00% |
+| [bin-proto 0.12.9][bin-proto] | 5.45% | 43.66% | † | 57.80% | 83.96% | 78.64% | 32.11% |
 | [bitcode 0.6.9][bitcode] | 100.00% | 100.00% | 100.00% | 100.00% | 100.00% | 100.00% | 100.00% |
-| [borsh 1.8.1][borsh] | 24.48% | 70.22% | † | 73.37% | 85.79% | 86.75% | 37.13% |
-| capnp:<br> [capnp 0.27.2][capnp] | 27.05% <span title="packed">*12.26%\**</span> | † | † | 40.76% <span title="packed">*67.01%\**</span> | 59.88% <span title="packed">*68.55%\**</span> | 64.84% <span title="packed">*67.04%\**</span> | 22.46% <span title="packed">*28.30%\**</span> |
-| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 18.13% | 26.80% | 4.74% | 29.53% | 58.29% | 66.36% | 22.51% |
-| cbor:<br> [ciborium 0.2.2][ciborium] | 3.41% | 12.55% | † | 29.53% | 58.29% | 66.35% | 22.57% |
-| [flatbuffers 25.12.19][flatbuffers] | 3.93% | † | † | 38.58% | 57.77% | 61.74% | 22.43% |
-| [flexbuffers 25.12.19][flexbuffers] | 1.66% | 18.53% | 3.07% | 27.59% | 36.04% | 32.88% | 12.63% |
-| json:<br> [flexon 0.4.9][flexon] | 5.41% | 28.84% | † | 20.19% | 43.07% | 50.69% | 13.69% |
-| json:<br> [serde_json 1.0.151][serde_json] | 3.61% | 17.82% | † | 20.19% | 43.07% | 50.69% | 13.21% |
-| json:<br> [simd-json 0.17.3][simd-json] | 5.69% | 26.77% | † | 20.19% | 43.07% | 50.69% | 13.84% |
-| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 38.93% | 45.89% | 13.04% | 83.75% | 84.83% | 82.60% | 35.88% |
-| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 8.87% | 42.76% | 9.97% | 77.19% | 81.95% | 80.52% | 34.72% |
-| messagepack:<br> [zerompk 0.8.0][zerompk] | 35.72% | 60.30% | 18.34% | 78.77% | 82.42% | 80.92% | 33.88% |
-| [minicbor 2.3.0][minicbor] | 21.92% | 38.26% | 9.19% | 76.42% | 80.42% | 79.62% | 33.15% |
-| [nanoserde 0.2.1][nanoserde] | 46.73% | 68.11% | † | 57.69% | 83.75% | 78.51% | 32.26% |
-| [postcard 1.1.3][postcard] | 29.51% | 59.33% | 20.77% | 89.17% | 90.55% | 87.84% | 38.46% |
-| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*11.83%\**</span> <span title="populate + encode">*4.39%\**</span> | <span title="decode">*39.29%\**</span> <span title="decode + convert">*37.12%\**</span> | 7.09% | 54.91% | 65.82% | 67.74% | 25.99% |
-| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*9.94%\**</span> <span title="populate + encode">*4.29%\**</span> | <span title="decode">*36.57%\**</span> <span title="decode + convert">*35.65%\**</span> | † | 54.91% | 65.82% | 67.74% | 26.34% |
-| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*11.97%\**</span> <span title="populate + encode">*4.24%\**</span> | <span title="decode">*33.27%\**</span> <span title="decode + convert">*31.50%\**</span> | † | 54.91% | 65.82% | 67.74% | 26.04% |
-| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*7.19%\**</span> <span title="populate + encode">*1.83%\**</span> | <span title="decode + convert">*18.63%\**</span> <span title="decode, unvalidated">*42.39%\**</span> | † | 54.91% | 65.82% | 67.74% | 26.25% |
-| [rkyv 0.8.18][rkyv] | 38.68% | <span title="unvalidated">*84.74%\**</span> <span title="validated upfront with error">*68.91%\**</span> | † | 54.27% | 78.87% | 82.96% | 32.76% |
-| [ron 0.12.2][ron] | 1.50% | 4.58% | 0.64% | 22.36% | 46.20% | 53.09% | 14.19% |
-| [savefile 0.20.5][savefile] | 58.29% | 66.68% | † | 57.79% | 83.95% | 78.64% | 31.83% |
-| [serde-zap 0.1.1][serde-zap] | 56.16% | 65.18% | 24.89% | 89.19% | 90.81% | 88.27% | 38.40% |
-| [wincode 0.6.2][wincode] | 55.02% | 72.11% | 31.08% | 57.80% | 83.96% | 78.64% | 31.78% |
+| [borsh 1.8.1][borsh] | 18.49% | 70.05% | † | 73.37% | 85.79% | 86.75% | 39.34% |
+| capnp:<br> [capnp 0.27.2][capnp] | 23.27% <span title="packed">*10.51%\**</span> | † | † | 40.76% <span title="packed">*67.01%\**</span> | 59.88% <span title="packed">*68.55%\**</span> | 64.84% <span title="packed">*67.04%\**</span> | 21.83% <span title="packed">*32.18%\**</span> |
+| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 16.42% | 29.28% | 4.69% | 29.53% | 58.29% | 66.36% | 22.40% |
+| cbor:<br> [ciborium 0.2.2][ciborium] | 2.88% | 11.37% | † | 29.53% | 58.29% | 66.35% | 22.71% |
+| [flatbuffers 25.12.19][flatbuffers] | 3.11% | † | † | 38.58% | 57.77% | 61.74% | 21.45% |
+| [flexbuffers 25.12.19][flexbuffers] | 1.41% | 17.51% | 2.45% | 27.59% | 36.04% | 32.88% | 13.31% |
+| json:<br> [flexon 0.4.9][flexon] | 4.43% | 30.17% | † | 20.19% | 43.07% | 50.69% | 13.28% |
+| json:<br> [serde_json 1.0.151][serde_json] | 3.01% | 18.75% | † | 20.19% | 43.07% | 50.69% | 13.60% |
+| json:<br> [simd-json 0.17.3][simd-json] | 4.66% | 27.58% | † | 20.19% | 43.07% | 50.69% | 13.10% |
+| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 46.95% | 44.09% | 10.73% | 83.75% | 84.83% | 82.60% | 37.22% |
+| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 7.19% | 43.46% | 8.98% | 77.19% | 81.95% | 80.52% | 34.69% |
+| messagepack:<br> [zerompk 0.8.0][zerompk] | 42.71% | 58.58% | 15.81% | 78.77% | 82.42% | 80.92% | 36.80% |
+| [minicbor 2.3.0][minicbor] | 18.53% | 38.48% | 8.23% | 76.42% | 80.42% | 79.62% | 37.07% |
+| [nanoserde 0.2.1][nanoserde] | 55.88% | 67.90% | † | 57.69% | 83.75% | 78.51% | 29.49% |
+| [oxidef 0.1.0-alpha.1][oxidef] | 25.72% <span title="extensible">*12.32%\**</span> | 65.39% <span title="extensible">*59.94%\**</span> | † | 95.58% <span title="extensible">*89.12%\**</span> | 97.71% <span title="extensible">*94.33%\**</span> | 94.35% <span title="extensible">*92.39%\**</span> | 40.44% <span title="extensible">*42.78%\**</span> |
+| [oxidef_old 0.1.0-alpha.1][oxidef_old] | 27.74% <span title="extensible">*12.39%\**</span> | 65.30% <span title="extensible">*60.01%\**</span> | † | 95.58% <span title="extensible">*89.12%\**</span> | 97.71% <span title="extensible">*94.33%\**</span> | 94.35% <span title="extensible">*92.39%\**</span> | 41.55% <span title="extensible">*40.17%\**</span> |
+| [postcard 1.1.3][postcard] | 24.60% | 58.07% | 17.80% | 89.17% | 90.55% | 87.84% | 39.63% |
+| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*12.10%\**</span> <span title="populate + encode">*4.06%\**</span> | <span title="decode">*37.52%\**</span> <span title="decode + convert">*35.36%\**</span> | 5.50% | 54.91% | 65.82% | 67.74% | 27.32% |
+| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*9.16%\**</span> <span title="populate + encode">*3.77%\**</span> | <span title="decode">*36.54%\**</span> <span title="decode + convert">*35.52%\**</span> | † | 54.91% | 65.82% | 67.74% | 27.07% |
+| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*9.64%\**</span> <span title="populate + encode">*3.61%\**</span> | <span title="decode">*34.28%\**</span> <span title="decode + convert">*31.98%\**</span> | † | 54.91% | 65.82% | 67.74% | 27.22% |
+| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*6.10%\**</span> <span title="populate + encode">*1.57%\**</span> | <span title="decode + convert">*18.61%\**</span> <span title="decode, unvalidated">*42.30%\**</span> | † | 54.91% | 65.82% | 67.74% | 26.83% |
+| [rkyv 0.8.18][rkyv] | 42.22% | <span title="unvalidated">*81.89%\**</span> <span title="validated upfront with error">*65.14%\**</span> | † | 54.27% | 78.87% | 82.96% | 33.72% |
+| [ron 0.12.2][ron] | 1.45% | 4.62% | 0.56% | 22.36% | 46.20% | 53.09% | 14.08% |
+| [savefile 0.20.5][savefile] | 66.48% | 64.81% | † | 57.79% | 83.95% | 78.64% | 31.84% |
+| [serde-zap 0.1.1][serde-zap] | 65.08% | 64.07% | 21.29% | 89.19% | 90.81% | 88.27% | 38.00% |
+| [wincode 0.6.2][wincode] | 65.70% | 70.81% | 26.73% | 57.80% | 83.96% | 78.64% | 33.15% |
 
 #### Zero-copy deserialization speed
 
 | Crate | Access | Read | Update |
 |---|--:|--:|--:|
-| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*1.96%\**</span> | <span title="packed">*0.03%\**</span> <span title="validated on-demand with error">*37.69%\**</span> | ‡ |
-| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*50.01%\**</span> <span title="validated upfront with error">*0.00%\**</span> | <span title="unvalidated">*11.67%\**</span> <span title="validated upfront with error">*0.01%\**</span> | ‡ |
+| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*1.70%\**</span> | <span title="packed">*0.03%\**</span> <span title="validated on-demand with error">*27.56%\**</span> | ‡ |
+| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*50.16%\**</span> <span title="validated upfront with error">*0.00%\**</span> | <span title="unvalidated">*11.42%\**</span> <span title="validated upfront with error">*0.01%\**</span> | ‡ |
 | [rkyv 0.8.18][rkyv] | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*0.00%\**</span> | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*0.05%\**</span> | <span title="unvalidated">*100.00%\**</span> |
 
 ## `mk48`
@@ -407,41 +419,43 @@ For operations, time per iteration; for size, bytes. Lower is better.
 
 | Crate | Serialize | Deserialize | Size | Zlib | Zstd | Zstd Time |
 |---|--:|--:|--:|--:|--:|--:|
-| [bilrost 0.1016.1][bilrost] | <span title="encode">*4.5601 ms\**</span> <span title="prepend">*2.5698 ms\**</span> | 8.4735 ms | 1704643 | 1294259 | 1245668 | 11.794 ms |
-| [bin-proto 0.12.9][bin-proto] | 5.6653 ms | 6.6314 ms | 1791489 | 1127998 | 1051146 | 10.428 ms |
-| [bitcode 0.6.9][bitcode] | 691.94 µs | 2.3506 ms | 971318 | 878034 | 850340 | 2.9487 ms |
-| [borsh 1.8.1][borsh] | 2.7122 ms | 2.8687 ms | 1521989 | 1108471 | 1038528 | 10.187 ms |
-| capnp:<br> [capnp 0.27.2][capnp] | 2.6450 ms <span title="packed">*4.5080 ms\**</span> | † | 2724288 <span title="packed">*1616255\**</span> | 1546992 <span title="packed">*1278764\**</span> | 1239111 <span title="packed">*1125654\**</span> | 14.802 ms <span title="packed">*9.0290 ms\**</span> |
-| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 2.9288 ms | 19.581 ms | 6012539 | 1695215 | 1464951 | 21.598 ms |
-| cbor:<br> [ciborium 0.2.2][ciborium] | 23.167 ms | 54.761 ms | 6012373 | 1695146 | 1465025 | 21.573 ms |
-| [flatbuffers 25.12.19][flatbuffers] | 4.9501 ms | † | 2325620 | 1439185 | 1268060 | 13.709 ms |
-| [flexbuffers 25.12.19][flexbuffers] | 39.521 ms | 37.105 ms | 5352680 | 2658295 | 2777967 | 35.407 ms |
-| json:<br> [flexon 0.4.9][flexon] | 12.812 ms | 22.583 ms | 9390461 | 2391679 | 1842767 | 35.161 ms |
-| json:<br> [serde_json 1.0.151][serde_json] | 19.186 ms | 33.502 ms | 9390461 | 2391679 | 1842767 | 35.093 ms |
-| json:<br> [simd-json 0.17.3][simd-json] | 11.729 ms | 27.082 ms | 9390461 | 2391679 | 1842767 | 35.254 ms |
-| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 962.24 µs | 5.6712 ms | 1458773 | 1156055 | 1137788 | 10.000 ms |
-| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 9.9663 ms | 11.097 ms | 1745322 | 1261627 | 1228923 | 11.748 ms |
-| messagepack:<br> [zerompk 0.8.0][zerompk] | 1.1078 ms | 4.7184 ms | 1675866 | 1230968 | 1195006 | 11.214 ms |
-| [minicbor 2.3.0][minicbor] | 2.3250 ms | 11.741 ms | 1777386 | 1276218 | 1252558 | 12.669 ms |
-| [nanoserde 0.2.1][nanoserde] | 1.2852 ms | 2.8054 ms | 1812404 | 1134820 | 1053109 | 10.328 ms |
-| [postcard 1.1.3][postcard] | 1.8012 ms | 4.4540 ms | 1311281 | 1083900 | 1041434 | 8.7862 ms |
-| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*3.7747 ms\**</span> <span title="populate + encode">*8.3004 ms\**</span> | <span title="decode">*8.8019 ms\**</span> <span title="decode + convert">*9.9886 ms\**</span> | 1859886 | 1338076 | 1295351 | 12.332 ms |
-| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*5.4524 ms\**</span> <span title="populate + encode">*9.3787 ms\**</span> | <span title="decode">*8.7450 ms\**</span> <span title="decode + convert">*9.5943 ms\**</span> | 1859886 | 1338076 | 1295351 | 12.508 ms |
-| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*5.4508 ms\**</span> <span title="populate + encode">*12.712 ms\**</span> | <span title="decode">*11.967 ms\**</span> <span title="decode + convert">*12.816 ms\**</span> | 1859886 | 1338076 | 1295351 | 12.550 ms |
-| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*8.6187 ms\**</span> <span title="populate + encode">*31.021 ms\**</span> | <span title="decode + convert">*24.928 ms\**</span> <span title="decode, unvalidated">*11.487 ms\**</span> | 1859886 | 1338076 | 1295351 | 12.230 ms |
-| [rkyv 0.8.18][rkyv] | 974.23 µs | <span title="unvalidated">*2.1859 ms\**</span> <span title="validated upfront with error">*2.6585 ms\**</span> | 2075936 | 1383779 | 1210377 | 13.149 ms |
-| [ron 0.12.2][ron] | 46.035 ms | 178.40 ms | 8677703 | 2233642 | 1826180 | 34.948 ms |
-| [savefile 0.20.5][savefile] | 849.93 µs | 2.8396 ms | 1791505 | 1128012 | 1051153 | 10.288 ms |
-| [serde-zap 0.1.1][serde-zap] | 710.02 µs | 4.3132 ms | 1406257 | 1117802 | 1062438 | 9.5634 ms |
-| [wincode 0.6.2][wincode] | 640.25 µs | 2.3017 ms | 1791489 | 1127998 | 1051146 | 10.470 ms |
+| [bilrost 0.1016.1][bilrost] | <span title="encode">*3.7373 ms\**</span> <span title="prepend">*1.9694 ms\**</span> | 6.6683 ms | 1704643 | 1294259 | 1245668 | 8.1333 ms |
+| [bin-proto 0.12.9][bin-proto] | 4.8890 ms | 5.4132 ms | 1791489 | 1127998 | 1051146 | 7.1425 ms |
+| [bitcode 0.6.9][bitcode] | 552.53 µs | 1.9597 ms | 971318 | 878034 | 850340 | 2.2217 ms |
+| [borsh 1.8.1][borsh] | 2.5759 ms | 2.2783 ms | 1521989 | 1108471 | 1038528 | 7.0142 ms |
+| capnp:<br> [capnp 0.27.2][capnp] | 2.1173 ms <span title="packed">*3.7134 ms\**</span> | † | 2724288 <span title="packed">*1616255\**</span> | 1546992 <span title="packed">*1278764\**</span> | 1239111 <span title="packed">*1125654\**</span> | 10.829 ms <span title="packed">*5.9466 ms\**</span> |
+| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 2.0393 ms | 14.657 ms | 6012539 | 1695215 | 1464951 | 16.947 ms |
+| cbor:<br> [ciborium 0.2.2][ciborium] | 21.434 ms | 46.324 ms | 6012373 | 1695146 | 1465025 | 16.727 ms |
+| [flatbuffers 25.12.19][flatbuffers] | 3.9184 ms | † | 2325620 | 1439185 | 1268060 | 9.7033 ms |
+| [flexbuffers 25.12.19][flexbuffers] | 31.920 ms | 29.656 ms | 5352680 | 2658295 | 2777967 | 24.953 ms |
+| json:<br> [flexon 0.4.9][flexon] | 10.823 ms | 16.707 ms | 9390461 | 2391679 | 1842767 | 27.660 ms |
+| json:<br> [serde_json 1.0.151][serde_json] | 16.688 ms | 25.420 ms | 9390461 | 2391679 | 1842767 | 27.583 ms |
+| json:<br> [simd-json 0.17.3][simd-json] | 10.316 ms | 20.834 ms | 9390461 | 2391679 | 1842767 | 27.465 ms |
+| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 828.13 µs | 4.7244 ms | 1458773 | 1156055 | 1137788 | 6.9344 ms |
+| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 8.3853 ms | 8.5791 ms | 1745322 | 1261627 | 1228923 | 8.0639 ms |
+| messagepack:<br> [zerompk 0.8.0][zerompk] | 897.11 µs | 3.8110 ms | 1675866 | 1230968 | 1195006 | 7.6095 ms |
+| [minicbor 2.3.0][minicbor] | 1.9740 ms | 9.4262 ms | 1777386 | 1276218 | 1252558 | 8.8657 ms |
+| [nanoserde 0.2.1][nanoserde] | 698.12 µs | 2.1962 ms | 1812404 | 1134820 | 1053109 | 7.2688 ms |
+| [oxidef 0.1.0-alpha.1][oxidef] | 2.2793 ms <span title="extensible">*5.4714 ms\**</span> | 3.0397 ms <span title="extensible">*4.0582 ms\**</span> | 1072419 <span title="extensible">*1243187\**</span> | 980823 <span title="extensible">*1049260\**</span> | 953693 <span title="extensible">*1002719\**</span> | 2.9221 ms <span title="extensible">*6.0799 ms\**</span> |
+| [oxidef_old 0.1.0-alpha.1][oxidef_old] | 2.2987 ms <span title="extensible">*4.4815 ms\**</span> | 3.0608 ms <span title="extensible">*4.0334 ms\**</span> | 1072419 <span title="extensible">*1243187\**</span> | 980823 <span title="extensible">*1049260\**</span> | 953693 <span title="extensible">*1002719\**</span> | 2.9309 ms <span title="extensible">*5.9415 ms\**</span> |
+| [postcard 1.1.3][postcard] | 1.5918 ms | 3.7895 ms | 1311281 | 1083900 | 1041434 | 5.8862 ms |
+| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*2.8663 ms\**</span> <span title="populate + encode">*6.6673 ms\**</span> | <span title="decode">*9.0238 ms\**</span> <span title="decode + convert">*9.9860 ms\**</span> | 1859886 | 1338076 | 1295351 | 8.6469 ms |
+| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*4.6005 ms\**</span> <span title="populate + encode">*8.2152 ms\**</span> | <span title="decode">*7.0385 ms\**</span> <span title="decode + convert">*7.7838 ms\**</span> | 1859886 | 1338076 | 1295351 | 8.7996 ms |
+| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*4.3144 ms\**</span> <span title="populate + encode">*10.816 ms\**</span> | <span title="decode">*10.331 ms\**</span> <span title="decode + convert">*11.440 ms\**</span> | 1859886 | 1338076 | 1295351 | 8.6661 ms |
+| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*13.588 ms\**</span> <span title="populate + encode">*30.605 ms\**</span> | <span title="decode + convert">*19.850 ms\**</span> <span title="decode, unvalidated">*8.9426 ms\**</span> | 1859886 | 1338076 | 1295351 | 8.6676 ms |
+| [rkyv 0.8.18][rkyv] | 821.05 µs | <span title="unvalidated">*1.8362 ms\**</span> <span title="validated upfront with error">*2.2453 ms\**</span> | 2075936 | 1383779 | 1210377 | 9.4694 ms |
+| [ron 0.12.2][ron] | 33.360 ms | 137.34 ms | 8677703 | 2233642 | 1826180 | 27.453 ms |
+| [savefile 0.20.5][savefile] | 577.40 µs | 2.3562 ms | 1791505 | 1128012 | 1051153 | 7.2632 ms |
+| [serde-zap 0.1.1][serde-zap] | 601.43 µs | 3.5923 ms | 1406257 | 1117802 | 1062438 | 6.7283 ms |
+| [wincode 0.6.2][wincode] | 523.34 µs | 1.9240 ms | 1791489 | 1127998 | 1051146 | 7.1754 ms |
 
 #### Zero-copy deserialization speed
 
 | Crate | Access | Read | Update |
 |---|--:|--:|--:|
-| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*68.530 ns\**</span> | <span title="packed">*2.0056 ms\**</span> <span title="validated on-demand with error">*468.65 ns\**</span> | ‡ |
-| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*2.4900 ns\**</span> <span title="validated upfront with error">*6.2549 ms\**</span> | <span title="unvalidated">*2.5762 µs\**</span> <span title="validated upfront with error">*5.4905 ms\**</span> | ‡ |
-| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*1.2451 ns\**</span> <span title="validated upfront with error">*460.28 µs\**</span> | <span title="unvalidated">*385.54 ns\**</span> <span title="validated upfront with error">*460.19 µs\**</span> | <span title="unvalidated">*235.41 ns\**</span> |
+| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*67.194 ns\**</span> | <span title="packed">*1.6826 ms\**</span> <span title="validated on-demand with error">*390.68 ns\**</span> | ‡ |
+| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*2.1874 ns\**</span> <span title="validated upfront with error">*5.5143 ms\**</span> | <span title="unvalidated">*2.3321 µs\**</span> <span title="validated upfront with error">*5.3924 ms\**</span> | ‡ |
+| [rkyv 0.8.18][rkyv] | <span title="unvalidated">*1.0905 ns\**</span> <span title="validated upfront with error">*373.36 µs\**</span> | <span title="unvalidated">*295.54 ns\**</span> <span title="validated upfront with error">*375.15 µs\**</span> | <span title="unvalidated">*551.36 ns\**</span> |
 
 ### Comparison
 
@@ -451,40 +465,42 @@ Relative to best. Higher is better.
 
 | Crate | Serialize | Deserialize | Size | Zlib | Zstd | Zstd Time |
 |---|--:|--:|--:|--:|--:|--:|
-| [bilrost 0.1016.1][bilrost] | <span title="encode">*14.04%\**</span> <span title="prepend">*24.91%\**</span> | 25.80% | 56.98% | 67.84% | 68.26% | 25.00% |
-| [bin-proto 0.12.9][bin-proto] | 11.30% | 32.96% | 54.22% | 77.84% | 80.90% | 28.28% |
-| [bitcode 0.6.9][bitcode] | 92.53% | 92.99% | 100.00% | 100.00% | 100.00% | 100.00% |
-| [borsh 1.8.1][borsh] | 23.61% | 76.20% | 63.82% | 79.21% | 81.88% | 28.95% |
-| capnp:<br> [capnp 0.27.2][capnp] | 24.21% <span title="packed">*14.20%\**</span> | † | 35.65% <span title="packed">*60.10%\**</span> | 56.76% <span title="packed">*68.66%\**</span> | 68.63% <span title="packed">*75.54%\**</span> | 19.92% <span title="packed">*32.66%\**</span> |
-| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 21.86% | 11.16% | 16.15% | 51.79% | 58.05% | 13.65% |
-| cbor:<br> [ciborium 0.2.2][ciborium] | 2.76% | 3.99% | 16.16% | 51.80% | 58.04% | 13.67% |
-| [flatbuffers 25.12.19][flatbuffers] | 12.93% | † | 41.77% | 61.01% | 67.06% | 21.51% |
-| [flexbuffers 25.12.19][flexbuffers] | 1.62% | 5.89% | 18.15% | 33.03% | 30.61% | 8.33% |
-| json:<br> [flexon 0.4.9][flexon] | 5.00% | 9.68% | 10.34% | 36.71% | 46.14% | 8.39% |
-| json:<br> [serde_json 1.0.151][serde_json] | 3.34% | 6.52% | 10.34% | 36.71% | 46.14% | 8.40% |
-| json:<br> [simd-json 0.17.3][simd-json] | 5.46% | 8.07% | 10.34% | 36.71% | 46.14% | 8.36% |
-| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 66.54% | 38.54% | 66.58% | 75.95% | 74.74% | 29.49% |
-| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 6.42% | 19.70% | 55.65% | 69.60% | 69.19% | 25.10% |
-| messagepack:<br> [zerompk 0.8.0][zerompk] | 57.79% | 46.33% | 57.96% | 71.33% | 71.16% | 26.29% |
-| [minicbor 2.3.0][minicbor] | 27.54% | 18.62% | 54.65% | 68.80% | 67.89% | 23.27% |
-| [nanoserde 0.2.1][nanoserde] | 49.82% | 77.92% | 53.59% | 77.37% | 80.75% | 28.55% |
-| [postcard 1.1.3][postcard] | 35.55% | 49.08% | 74.07% | 81.01% | 81.65% | 33.56% |
-| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*16.96%\**</span> <span title="populate + encode">*7.71%\**</span> | <span title="decode">*24.83%\**</span> <span title="decode + convert">*21.88%\**</span> | 52.22% | 65.62% | 65.65% | 23.91% |
-| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*11.74%\**</span> <span title="populate + encode">*6.83%\**</span> | <span title="decode">*25.00%\**</span> <span title="decode + convert">*22.78%\**</span> | 52.22% | 65.62% | 65.65% | 23.57% |
-| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*11.75%\**</span> <span title="populate + encode">*5.04%\**</span> | <span title="decode">*18.27%\**</span> <span title="decode + convert">*17.06%\**</span> | 52.22% | 65.62% | 65.65% | 23.50% |
-| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*7.43%\**</span> <span title="populate + encode">*2.06%\**</span> | <span title="decode + convert">*8.77%\**</span> <span title="decode, unvalidated">*19.03%\**</span> | 52.22% | 65.62% | 65.65% | 24.11% |
-| [rkyv 0.8.18][rkyv] | 65.72% | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*82.22%\**</span> | 46.79% | 63.45% | 70.25% | 22.42% |
-| [ron 0.12.2][ron] | 1.39% | 1.23% | 11.19% | 39.31% | 46.56% | 8.44% |
-| [savefile 0.20.5][savefile] | 75.33% | 76.98% | 54.22% | 77.84% | 80.90% | 28.66% |
-| [serde-zap 0.1.1][serde-zap] | 90.17% | 50.68% | 69.07% | 78.55% | 80.04% | 30.83% |
-| [wincode 0.6.2][wincode] | 100.00% | 94.97% | 54.22% | 77.84% | 80.90% | 28.16% |
+| [bilrost 0.1016.1][bilrost] | <span title="encode">*14.00%\**</span> <span title="prepend">*26.57%\**</span> | 27.54% | 56.98% | 67.84% | 68.26% | 27.32% |
+| [bin-proto 0.12.9][bin-proto] | 10.70% | 33.92% | 54.22% | 77.84% | 80.90% | 31.11% |
+| [bitcode 0.6.9][bitcode] | 94.72% | 93.70% | 100.00% | 100.00% | 100.00% | 100.00% |
+| [borsh 1.8.1][borsh] | 20.32% | 80.60% | 63.82% | 79.21% | 81.88% | 31.67% |
+| capnp:<br> [capnp 0.27.2][capnp] | 24.72% <span title="packed">*14.09%\**</span> | † | 35.65% <span title="packed">*60.10%\**</span> | 56.76% <span title="packed">*68.66%\**</span> | 68.63% <span title="packed">*75.54%\**</span> | 20.52% <span title="packed">*37.36%\**</span> |
+| cbor:<br> [cbor4ii 1.2.3][cbor4ii] | 25.66% | 12.53% | 16.15% | 51.79% | 58.05% | 13.11% |
+| cbor:<br> [ciborium 0.2.2][ciborium] | 2.44% | 3.96% | 16.16% | 51.80% | 58.04% | 13.28% |
+| [flatbuffers 25.12.19][flatbuffers] | 13.36% | † | 41.77% | 61.01% | 67.06% | 22.90% |
+| [flexbuffers 25.12.19][flexbuffers] | 1.64% | 6.19% | 18.15% | 33.03% | 30.61% | 8.90% |
+| json:<br> [flexon 0.4.9][flexon] | 4.84% | 10.99% | 10.34% | 36.71% | 46.14% | 8.03% |
+| json:<br> [serde_json 1.0.151][serde_json] | 3.14% | 7.22% | 10.34% | 36.71% | 46.14% | 8.05% |
+| json:<br> [simd-json 0.17.3][simd-json] | 5.07% | 8.81% | 10.34% | 36.71% | 46.14% | 8.09% |
+| messagepack:<br> [msgpacker 0.7.1][msgpacker] | 63.20% | 38.87% | 66.58% | 75.95% | 74.74% | 32.04% |
+| messagepack:<br> [rmp-serde 1.3.1][rmp-serde] | 6.24% | 21.40% | 55.65% | 69.60% | 69.19% | 27.55% |
+| messagepack:<br> [zerompk 0.8.0][zerompk] | 58.34% | 48.18% | 57.96% | 71.33% | 71.16% | 29.20% |
+| [minicbor 2.3.0][minicbor] | 26.51% | 19.48% | 54.65% | 68.80% | 67.89% | 25.06% |
+| [nanoserde 0.2.1][nanoserde] | 74.96% | 83.61% | 53.59% | 77.37% | 80.75% | 30.56% |
+| [oxidef 0.1.0-alpha.1][oxidef] | 22.96% <span title="extensible">*9.57%\**</span> | 60.41% <span title="extensible">*45.25%\**</span> | 90.57% <span title="extensible">*78.13%\**</span> | 89.52% <span title="extensible">*83.68%\**</span> | 89.16% <span title="extensible">*84.80%\**</span> | 76.03% <span title="extensible">*36.54%\**</span> |
+| [oxidef_old 0.1.0-alpha.1][oxidef_old] | 22.77% <span title="extensible">*11.68%\**</span> | 59.99% <span title="extensible">*45.52%\**</span> | 90.57% <span title="extensible">*78.13%\**</span> | 89.52% <span title="extensible">*83.68%\**</span> | 89.16% <span title="extensible">*84.80%\**</span> | 75.80% <span title="extensible">*37.39%\**</span> |
+| [postcard 1.1.3][postcard] | 32.88% | 48.45% | 74.07% | 81.01% | 81.65% | 37.74% |
+| protobuf:<br> [buffa 0.9.2][buffa] | <span title="encode">*18.26%\**</span> <span title="populate + encode">*7.85%\**</span> | <span title="decode">*20.35%\**</span> <span title="decode + convert">*18.39%\**</span> | 52.22% | 65.62% | 65.65% | 25.69% |
+| protobuf:<br> [prost 0.14.4][prost] | <span title="encode">*11.38%\**</span> <span title="populate + encode">*6.37%\**</span> | <span title="decode">*26.09%\**</span> <span title="decode + convert">*23.59%\**</span> | 52.22% | 65.62% | 65.65% | 25.25% |
+| protobuf:<br> [protobuf 3.7.2][protobuf] | <span title="encode">*12.13%\**</span> <span title="populate + encode">*4.84%\**</span> | <span title="decode">*17.77%\**</span> <span title="decode + convert">*16.05%\**</span> | 52.22% | 65.62% | 65.65% | 25.64% |
+| protobuf:<br> [protobuf 4.36.2-release][protobuf4] | <span title="encode">*3.85%\**</span> <span title="populate + encode">*1.71%\**</span> | <span title="decode + convert">*9.25%\**</span> <span title="decode, unvalidated">*20.53%\**</span> | 52.22% | 65.62% | 65.65% | 25.63% |
+| [rkyv 0.8.18][rkyv] | 63.74% | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*81.78%\**</span> | 46.79% | 63.45% | 70.25% | 23.46% |
+| [ron 0.12.2][ron] | 1.57% | 1.34% | 11.19% | 39.31% | 46.56% | 8.09% |
+| [savefile 0.20.5][savefile] | 90.64% | 77.93% | 54.22% | 77.84% | 80.90% | 30.59% |
+| [serde-zap 0.1.1][serde-zap] | 87.02% | 51.11% | 69.07% | 78.55% | 80.04% | 33.02% |
+| [wincode 0.6.2][wincode] | 100.00% | 95.44% | 54.22% | 77.84% | 80.90% | 30.96% |
 
 #### Zero-copy deserialization speed
 
 | Crate | Access | Read | Update |
 |---|--:|--:|--:|
-| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*1.82%\**</span> | <span title="packed">*0.02%\**</span> <span title="validated on-demand with error">*82.27%\**</span> | ‡ |
-| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*50.00%\**</span> <span title="validated upfront with error">*0.00%\**</span> | <span title="unvalidated">*14.97%\**</span> <span title="validated upfront with error">*0.01%\**</span> | ‡ |
+| capnp:<br> [capnp 0.27.2][capnp] | <span title="validated on-demand with error">*1.62%\**</span> | <span title="packed">*0.02%\**</span> <span title="validated on-demand with error">*75.65%\**</span> | ‡ |
+| [flatbuffers 25.12.19][flatbuffers] | <span title="unvalidated">*49.85%\**</span> <span title="validated upfront with error">*0.00%\**</span> | <span title="unvalidated">*12.67%\**</span> <span title="validated upfront with error">*0.01%\**</span> | ‡ |
 | [rkyv 0.8.18][rkyv] | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*0.00%\**</span> | <span title="unvalidated">*100.00%\**</span> <span title="validated upfront with error">*0.08%\**</span> | <span title="unvalidated">*100.00%\**</span> |
 
 [bilrost]: https://crates.io/crates/bilrost/0.1016.1
@@ -501,6 +517,8 @@ Relative to best. Higher is better.
 [minicbor]: https://crates.io/crates/minicbor/2.3.0
 [msgpacker]: https://crates.io/crates/msgpacker/0.7.1
 [nanoserde]: https://crates.io/crates/nanoserde/0.2.1
+[oxidef]: https://crates.io/crates/oxidef/0.1.0-alpha.1
+[oxidef_old]: https://crates.io/crates/oxidef/0.1.0-alpha.1
 [postcard]: https://crates.io/crates/postcard/1.1.3
 [prost]: https://crates.io/crates/prost/0.14.4
 [protobuf]: https://crates.io/crates/protobuf/3.7.2
